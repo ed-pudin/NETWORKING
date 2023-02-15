@@ -67,16 +67,45 @@
         <div class="background container-fluid min-vh-100">
             <div class="netw-inicio min-vh-80" style="">
                 <div class="row" >
-                    <div class="col-md-7 col-12">
-                        <img width="750" class="img img-fluid" src="{{asset('imgs/logo-2.png')}}" alt="EXPO LMAD 2023">
+                    <div class="col-md-7 col-12" style="
+                    align-self: center;
+                    text-align: -webkit-center;">
+                        <img class="img img-fluid p-5" src="{{asset('imgs/logo.png')}}" alt="EXPO LMAD 2023">
                     </div>
+
                     <div class="col-md-5 col-12 py-lg-0 py-5 px-5" style="align-self: end;">
-                        <p style="text-align: end">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, quos corrupti illum eum laborum iure alias a quae hic cupiditate. Cumque fugit quas provident beatae fugiat, consectetur eius tenetur ex.
-                        </p>
-                        <a class="nav-link btn-w" href="#" style="margin-left: auto;">
-                            <p class="px-5 py-2 my-0 mx-2 nav-txt nav-index"> COMENZAR </p>
-                        </a>
+                        <div class="row">
+                            <form class="my-4 form-login" id="login" action="" method="post">
+                                @csrf
+                                <div class="col-12 d-flex justify-content-center my-5">
+                                    <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:-webkit-xxx-large"> BIENVENIDO </h1>
+                                </div>
+    
+                                <div class="d-flex justify-content-center">
+    
+                                    <div class="col-md-10 my-4 mx-3">
+                                        <div class="" syle="transform-origin: unset;">
+                                            <input type="text" class="form-control text-center" name="key" id="key" placeholder="Clave de inicio de sesión" required>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="d-flex justify-content-center">
+    
+                                    <div class="col-md-10 my-4 mx-3">
+                                        <div class="" syle="transform-origin: unset;">
+                                            <input type="password" class="form-control text-center" name="pas" id="pas" placeholder="Contraseña" required>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="d-flex justify-content-center my-4">
+                                    <button type="submit" class="btn btn-primary col-md-6">Iniciar sesión</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
