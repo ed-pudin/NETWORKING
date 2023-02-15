@@ -104,24 +104,39 @@
 
                 <div class="row">
                 <div class="container-fluid">
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="..." class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Nombre del Alumno</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+                <div class="center">
+                    <div class="card">
+                        <div class="additional">
+                            <div class="user-card">
+                                <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
+                                    <title id="title">Nombre del Alumno</title>
+                                    <desc id="desc">Linkedin</desc>
+                                    <img src="https://placehold.co/110x110" class="img-fluid  mx-lg-3 my-2 rounded-circle" style="align=center" alt="..." height="150">
+                                    <div class="col-md-2 col-3 mx-lg-2 my-0">
+                                        <img src="{{ asset('imgs/logo.png') }}" class="img-fluid  mx-lg-2 my-0" height="10"> 
+                                    </div>
+                                </svg>
+                            </div>
+                            <div class="more-info">
+                                <h2 class="student-name" style="text-align: center;">Nombre del Alumno</h2>
+                                <div class="coords">
+                                    <span>Linkedin</span>
+                                    <span>EXPO: 2019</span>
+                                    <div class="information">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="general">
+                            <h2 class="student-name" style="text-align: center;">Nombre del Alumno</h2>
+                               
+                            <p class="more">Pase sobre la tarjeta para más información</p>
+                        </div>
                     </div>
-                </div>
-                </div>
                 </div>
             </div>
         </div>
     </body>
-
 </html>
