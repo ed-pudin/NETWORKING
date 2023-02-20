@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Log In</title>
+        <title>Profile</title>
 
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -40,9 +40,6 @@
                     <ul class="nav navbar-nav navbar-left">
                         
                     </ul>
-                    
-
-
                     <ul class="nav navbar-nav ms-auto me-2">
 
                         <li class="nav-item">
@@ -53,7 +50,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link btn-w" href="#">
-                                <p class="my-0 mx-2 nav-txt nav-index"> INGRESAR </p>
+                                <p class="my-0 mx-2 nav-txt nav-index"> CERRAR SESION </p>
                             </a>
                         </li>
                         
@@ -70,7 +67,7 @@
                     <div class="col-md-7 col-12" style="
                     align-self: center;
                     text-align: -webkit-center;">
-                        <img class="img img-fluid p-5" src="{{asset('imgs/logo.png')}}" alt="EXPO LMAD 2023">
+                        <img class="img img-fluid p-5 rounded-circle" src="https://placehold.co/450x450" alt="EXPO LMAD 2023">
                     </div>
 
                     <div class="col-md-5 col-12 py-lg-0 py-5 px-5" style="align-self: end;">
@@ -78,14 +75,15 @@
                             <form class="my-4 form-login" id="login" action="" method="post">
                                 @csrf
                                 <div class="col-12 d-flex justify-content-center my-5">
-                                    <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:-webkit-xxx-large"> BIENVENIDO </h1>
+                                    <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:-webkit-xxx-large"> Información Básica: </h1>
                                 </div>
     
                                 <div class="d-flex justify-content-center">
     
                                     <div class="col-md-10 my-4 mx-3">
                                         <div class="" syle="transform-origin: unset;">
-                                            <input type="text" class="form-control text-center" name="key" id="key" placeholder="Clave de inicio de sesión" required>
+                                            <ul type="text" class="form-control text-center" name="key" id="key" placeholder="Clave de inicio de sesión">
+                                            </ul>
                                         </div>
                                     </div>
     
@@ -95,14 +93,15 @@
     
                                     <div class="col-md-10 my-4 mx-3">
                                         <div class="" syle="transform-origin: unset;">
-                                            <input type="password" class="form-control text-center" name="pas" id="pas" placeholder="Contraseña" required>
+                                            <ul type="password" class="form-control text-center" name="pas" id="pas" placeholder="Contraseña">
+                                            </ul>
                                         </div>
                                     </div>
     
                                 </div>
     
                                 <div class="d-flex justify-content-center my-4">
-                                    <button type="submit" class="btn btn-primary col-md-6">Iniciar sesión</button>
+                                    <button type="submit" class="btn btn-primary col-md-6">Modificar Datos?</button>
                                 </div>
                             </form>
                         </div>

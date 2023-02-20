@@ -104,35 +104,47 @@
 
                 <div class="row">
                 <div class="container-fluid">
-
-                <div class="center">
-                    <div class="card">
-                        <div class="additional">
-                            <div class="user-card">
-                                <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
-                                    <title id="title">Nombre del Alumno</title>
-                                    <desc id="desc">Linkedin</desc>
-                                    <img src="https://placehold.co/110x110" class="img-fluid  mx-lg-3 my-2 rounded-circle" style="align=center" alt="..." height="150">
-                                    <div class="col-md-2 col-3 mx-lg-2 my-0">
-                                        <img src="{{ asset('imgs/logo.png') }}" class="img-fluid  mx-lg-2 my-0" height="10"> 
-                                    </div>
-                                </svg>
-                            </div>
-                            <div class="more-info">
-                                <h2 class="student-name" style="text-align: center;">Nombre del Alumno</h2>
-                                <div class="coords">
-                                    <span>Linkedin</span>
-                                    <span>EXPO: 2019</span>
-                                    <div class="information">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                    </div>
+                <div class="card">
+                    <div class="additional">
+                        <div class="user-card">
+                            <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
+                                <img src="https://placehold.co/110x110" class="img-fluid  mx-lg-3 my-2 rounded-circle" style="align=center" alt="..." height="150">
+                                <div class="col-md-2 col-3 mx-lg-2 my-0">
+                                    <img src="{{ asset('imgs/logo.png') }}" class="img-fluid  mx-lg-2 my-0" height="10"> 
                                 </div>
+                            </svg>
+                        </div>
+                        <div class="more-info">
+                                <div class="row my-0">
+                                <h4 class="student-name">Nombre del Alumno</h4>
+                                </div>
+                                <div class="row my-0">
+                                    <p class="linkedin">Linkedin</p>
+                                </div>
+                            <div class="coords">
+                                    <button type="button" class="btn-programming">Programación</button>
+                                    <button type="button" class="btn-animation3D">Animación 3D</button>
+                                    <button type="button" class="btn-animation2D">Animación 2D</button>
+                                    <button type="button" class="btn-databases">Bases de Datos</button>
+                                    <button type="button" class="btn-vfx">Efectos Visuales</button>
                             </div>
                         </div>
-                        <div class="general">
-                            <h2 class="student-name" style="text-align: center;">Nombre del Alumno</h2>
-                               
-                            <p class="more">Pase sobre la tarjeta para más información</p>
+                    </div>
+                    <div class="general">
+                        <div class="container-fluid">
+                            <div class="row my-0">
+                                <h4 class="student-fullname">Nombre del Alumno</h4>
+                            </div>
+                            <div class="row my-0">
+                                <div class="labels">
+                                    <button type="button" class="btn-programming">Programación</button>
+                                    <button type="button" class="btn-animation3D">Animación 3D</button>
+                                    <button type="button" class="btn-animation2D">Animación 2D</button>
+                                    <button type="button" class="btn-databases">Bases de Datos</button>
+                                    <button type="button" class="btn-vfx">Efectos Visuales</button>
+                                    <!--<p class="more">Pase sobre la tarjeta para más información</p>-->
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
