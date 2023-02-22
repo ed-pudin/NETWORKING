@@ -26,10 +26,6 @@ Route::resource('inicioSesion', LoginController::class, [
     'store' => 'inicioSesion.store'
 ]);
 
-Route::get('index', function () {
-    return view('index');
-});
-
 Route::get('login', function () {
     return view('login');
 });
@@ -38,6 +34,10 @@ Route::group(['middleware' => 'isStudent'], function () {
 
     Route::get('profile', function () {
         return view('company.profile');
+    });
+
+    Route::get('index', function () {
+        return view('company.index');
     });
 
 });
