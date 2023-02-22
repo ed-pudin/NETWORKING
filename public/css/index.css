@@ -1,18 +1,18 @@
 div.background {
     background-image: url('../imgs/background_1.png');
-    background-color: #020202; 
+    background-color: #020202;
     background-repeat: no-repeat;
-    background-size: cover; 
-    background-position: center; 
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
 }
 
 div.background-2 {
     background-image: url('../imgs/background_2.png');
-    background-color: #020202; 
+    background-color: #020202;
     background-repeat: no-repeat;
-    background-size: cover; 
-    background-position: center; 
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
 }
 
@@ -122,9 +122,13 @@ b {
 
 
 .form-select, input:not(input[type=image]),input:not(input[type=image]):focus {
-    background-color:black;
+    background-color:transparent;
     color:snow;
 }
+::-webkit-input-placeholder {
+    color:rgb(185, 185, 185) !important;
+}
+
 
 div.input-group-text {
     color: #39f6e4;
@@ -527,6 +531,11 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 .ms-drop{
     background-color: #000000;
 }
+.input-group-text{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
 
 .CarouselImg{
     width: auto;
@@ -536,7 +545,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 
 .netw-inicio.min-vh-80 {
     min-height: 80vh!important;
-    top: 15%;
+    top: 20%;
     position: sticky;
 }
 
@@ -657,7 +666,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
   position: relative;
   float: left;
 }
-  
+
 .card .additional .user-card::after {
   color: #fff;
   content: "";
@@ -710,7 +719,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
   color: #fff;
   padding-top: 2px;
   padding-left: 75px;
-  padding-bottom: 10px;  
+  padding-bottom: 10px;
   margin-bottom: 0;
 }
 
@@ -733,8 +742,8 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #000 inset !important;
 }

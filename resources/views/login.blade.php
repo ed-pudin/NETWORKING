@@ -41,29 +41,30 @@
 
                         <div class="d-flex justify-content-center">
 
-                            <div class="col-md-10 my-4 mx-3">
-                                <div class="" syle="transform-origin: unset;">
-                                    <input type="email" class="form-control text-center" name="email" id="email" placeholder="Correo" required>
-                                </div>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+                              </div>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required>
                             </div>
+
+
 
                         </div>
 
                         <div class="d-flex justify-content-center">
-
-                            <div class="col-md-10 my-4 mx-3">
-                                <div class="" syle="transform-origin: unset;">
-                                    <input type="password" class="form-control text-center" name="pas" id="pas" placeholder="Contraseña" required>
-                                </div>
-                            </div>
-
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
+                              </div>
+                              <input type="password" class="form-control" name="pas" id="pas" placeholder="Contraseña" required>
                         </div>
 
-                        <div class="d-flex justify-content-center my-4">
-                            <button type="submit" class="btn btn-primary col-md-6">Iniciar sesión</button>
+                        <div class="d-flex justify-content-center my-5">
+                            <button type="submit" class="btn btn-primary col-md-12">Iniciar sesión</button>
                         </div>
+
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     </div>
