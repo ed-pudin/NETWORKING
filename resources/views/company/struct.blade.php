@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand-lg bg-dark sticky-top">
             <div class="container-fluid">
                 <div class="col-md-0 p-2">
-                    <a class="navbar-brand" href="/"> <img class="logo-img" src="{{ asset('imgs/logo-w.png') }}" height="40"> </a>
+                    <a class="navbar-brand" href="/"> <img class="logo-img" src="{{ asset('imgs/logo.png') }}" height="40"> </a>
                 </div>
                 <button class="m-0 navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -41,23 +41,25 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
 
                     <ul class="nav navbar-nav navbar-left">
-
+                        
                     </ul>
-
                     <ul class="nav navbar-nav ms-auto me-2">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link" href="#">
                                 <p style="text-decoration: underline" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INICIO </p>
                             </a>
                         </li>
+                        <li class="nav-item" href="#">
+                            <button type="button" class="swal2-styled swal2-confirm my-0 mx-lg-5 mx-2 nav-txt nav-index">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+                                </svg>
+                                    USERNAME
+                            </button>
 
-                        <li class="nav-item">
-                            <a class="nav-link btn-w" href="{{route('inicioSesion.index')}}">
-                                <p class="my-0 mx-2 nav-txt nav-index"> INGRESAR </p>
-                            </a>
                         </li>
-
+                        
                     </ul>
 
                 </div>
