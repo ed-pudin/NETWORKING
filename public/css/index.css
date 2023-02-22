@@ -547,6 +547,14 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     transform: translate(-50%, -50%);
   }
 
+.icon {
+    width: 20px;
+    height: 20px;
+    color: snow;
+    float: absolute;
+    padding-top: 2px;
+}
+
 .card {
     width: 550px;
     height: 160px;
@@ -556,6 +564,22 @@ input[type="search"]::-webkit-search-cancel-button:hover {
     overflow: hidden;
     position: relative;
     margin: 2rem;
+}
+
+.card-profile{
+    width: 350px;
+    height: 500px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 8px 16px -8px rgba(0,0,0,0.4);
+    position: left;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-color: rgb(42, 40, 68);
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: 6px;
+    margin: 2rem;
+    padding-top: 15px;
 }
 
 .card h1 {
