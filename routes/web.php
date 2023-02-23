@@ -40,8 +40,8 @@ Route::group(['middleware' => 'isAdmin'], function () {
         return view('company.profile');
     });
 
-    Route::get('index', function () {
-        return view('company.index');
+    Route::get('catalogue', function () {
+        return view('company.catalogue');
     });
 
 });
