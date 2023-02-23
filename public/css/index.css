@@ -129,6 +129,9 @@ b {
     color:rgb(185, 185, 185) !important;
 }
 
+.rotate{
+    transform: rotate(180deg);
+}
 
 div.input-group-text {
     color: #39f6e4;
