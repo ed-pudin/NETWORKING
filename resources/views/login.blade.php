@@ -44,7 +44,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
                               </div>
-                              <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required>
+                              <input type="email" class="form-control" name="email" id="email" placeholder="Correo" required autocomplete="false">
                             </div>
 
 
@@ -55,7 +55,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock-fill"></i></span>
                               </div>
-                              <input type="password" class="form-control" name="pas" id="pas" placeholder="Contraseña" required>
+                              <input type="password" class="form-control" name="pas" id="pas" placeholder="Contraseña" required autocomplete="false">
                         </div>
 
                         <div class="d-flex justify-content-center my-5">

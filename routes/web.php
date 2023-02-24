@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,22 +27,31 @@ Route::resource('inicioSesion', LoginController::class, [
     'store' => 'inicioSesion.store'
 ]);
 
-Route::get('login', function () {
-    return view('login');
+Route::get('profile', function () {
+    return view('company.profile');
 });
+Route::get('catalogue', function () {
+    return view('company.catalogue');
+});
+
 
 Route::group(['middleware' => 'isAdmin'], function () {
 
-    Route::get('index', function () {
-        return view('company.index');
-    });
 
-    Route::get('profile', function () {
-        return view('company.profile');
-    });
 
-    Route::get('catalogue', function () {
-        return view('company.catalogue');
-    });
+
+
+});
+
+Route::group(['middleware' => 'isCompany'], function () {
+
+    //Acceso todos inicio sesion
+    Route::resource('empresa', CompanyController::class, [
+        //1. Vista principal de empresa (cartas de estudiantes)
+        'index' => 'empresa.index',
+    ]);
+
+
+
 
 });
