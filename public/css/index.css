@@ -604,19 +604,11 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 .card-profile{
-    width: 350px;
-    height: 500px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 8px 16px -8px rgba(0,0,0,0.4);
-    position: left;
-    display: flex;
-    flex-direction: column;
-    word-wrap: break-word;
     background-color: rgb(42, 40, 68);
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 6px;
-    margin: 2rem;
-    padding-top: 15px;
 }
 
 .card h1 {
