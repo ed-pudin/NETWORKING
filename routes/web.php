@@ -30,6 +30,9 @@ Route::resource('inicioSesion', LoginController::class, [
 Route::get('profile', function () {
     return view('company.profile');
 });
+Route::get('profileEst', function () {
+    return view('students.companyProfile');
+});
 Route::get('catalogue', function () {
     return view('company.catalogue');
 });
