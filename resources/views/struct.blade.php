@@ -46,17 +46,75 @@
 
                     <ul class="nav navbar-nav ms-auto me-2">
 
+                        @php
+                        $id = session()->get('id');
+                        $user = new App\Models\User();
+                        $user = App\Models\User::where('id', '=', $id)->first();
+                            if($user != null){
+
+                                $rol = $user->rol;
+                                if($rol == 'company')
+                                {
+                                    $company = new App\Models\company();
+                                    $company = App\Models\company::where('user', '=', $user->id)->first();
+                                }
+                                if($rol == 'student')
+                                {
+                                    $student = new App\Models\student();
+                                    $student = App\Models\student::where('user', '=', $user->id)->first();
+                                }
+                            }
+
+                        @endphp
+
                         <li class="nav-item">
-                            <a class="nav-link" href="/">
+                            <a class="nav-link"
+                                @if(!empty($company))
+                                    href="{{route('empresa.index')}}">
+                                @endif
+
+                                @if(!empty($student))
+                                href="{{route('student.index')}}">
+                                @endif
+
                                 <p style="text-decoration: underline" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INICIO </p>
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link btn-w" href="{{route('inicioSesion.index')}}">
-                                <p class="my-0 mx-2 nav-txt nav-index"> INGRESAR </p>
-                            </a>
-                        </li>
+                        @if (!session()->has('id'))
+                            <li class="nav-item m-2">
+                                <a class="nav-link btn-w" href="{{route('inicioSesion.index')}}">
+                                    <p class="my-0 mx-2 nav-txt nav-index"> INGRESAR </p>
+                                </a>
+                            </li>
+                        @else
+
+                            <li class="nav-item">
+                                <a class="nav-link btn-w"
+                                    @if(!empty($company))
+                                        href="{{route('empresa.show', $id)}}">
+                                    @endif
+                                    @if(!empty($student))
+                                        href="{{route('student.show', $id)}}">
+                                    @endif
+                                    <p class="my-0 mx-2 nav-txt nav-index"> <i class="bi bi-person-fill"></i>
+                                        @if(!empty($company))
+                                            {{$company->fullName}}
+                                        @endif
+                                        @if(!empty($student))
+                                            {{$student->fullName}}
+                                        @endif
+                                    </p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('cerrarSesion')}}">
+                                    <p style="text-decoration: underline" class="my-0 mx-lg-3 nav-txt nav-index"> SALIR </p>
+                                </a>
+                            </li>
+                        @endif
+
 
                     </ul>
 

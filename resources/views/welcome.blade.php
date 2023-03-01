@@ -24,7 +24,7 @@
                         </svg>
                     </span>
                 </p>
-                <a class="nav-link btn-w" href="#" style="margin-left: auto; margin-top:70px">
+                <a class="nav-link btn-w" href="{{route('inicioSesion.index')}}" style="margin-left: auto; margin-top:70px">
                     <p class="px-5 py-2 my-0 mx-2 nav-txt nav-index"> COMENZAR </p>
                 </a>
             </div>

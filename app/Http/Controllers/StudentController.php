@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\student;
 
-class LoginController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login');
+        //
     }
 
     /**
@@ -35,23 +36,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user = User::where('email', '=', $request->email, 'and')->where('password', '=', $request->pas)->first();
-        if($user != null){
-
-            session()->put('id', $user->id);
-            if($user->rol == 'admin'){
-                return redirect('/');
-            }else if ($user->rol == 'company'){
-                return redirect()->route('empresa.index');
-            }else if($user->rol == 'student'){
-                return redirect('/');
-            }
-        }
-        else{
-            session()->flash("status","Contraseña o clave incorrecta");
-            return redirect()->route('inicioSesion.index');
-        }
+        //
     }
 
     /**
@@ -62,7 +47,11 @@ class LoginController extends Controller
      */
     public function show($id)
     {
-        //
+        //Mostrar un alumno
+        $student = new App\Models\student();
+        $student = App\Models\student::where('user', '=', $user->id)->first();
+
+        return view('students.profile', compact('student'));
     }
 
     /**
@@ -97,13 +86,5 @@ class LoginController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function logOut(){
-        if(session()->exists('id')){
-            session()->forget('id');
-        }
-
-        return redirect('/');
     }
 }

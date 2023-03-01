@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\company;
+use App\Models\companyInterests;
 
 class CompanyController extends Controller
 {
@@ -46,7 +49,14 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        //Mostrar una empresa
+        $company = new company();
+        $company = company::where('user', '=', $id)->first();
+
+        //Mostrar intereses
+        $interests = new companyInterests();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.id')->where('company', '=', $company->id)->get();
+        return view('company.profile', compact('company', 'interests'));
     }
 
     /**
