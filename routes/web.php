@@ -32,11 +32,7 @@ Route::resource('inicioSesion', LoginController::class, [
 ]);
 
 Route::group(['middleware' => 'isAdmin'], function () {
-
-
-
-
-
+    
 });
 
 Route::group(['middleware' => 'isCompany'], function () {
