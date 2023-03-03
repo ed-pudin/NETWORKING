@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('fullName', 50);
             $table->string('linkedin', 100);
             $table->string('image', 500);
-            $table->unsignedBigInteger('interests');
-            $table->foreign('interests')->references('id')->on('interests');
             $table->unsignedBigInteger('user');
             $table->foreign('user')->references('id')->on('users');
             $table->timestamps();
@@ -36,7 +34,6 @@ return new class extends Migration
     {
         Schema::table('students', function(Blueprint $table)
         {
-            $table->dropForeign('interests');
             $table->dropForeign('user');
         });
         Schema::dropIfExists('students');

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\company;
 use App\Models\companyInterests;
+use App\Models\student;
+use App\Models\interests;
 
 class CompanyController extends Controller
 {
@@ -17,7 +19,13 @@ class CompanyController extends Controller
     public function index()
     {
         //Lista de estudiantes
-        return view('company.index');
+        $students = new student();
+        $students = student::all();
+
+        $allInterests = interests::all();
+
+
+        return view('company.index', compact('students', 'allInterests'));
     }
 
     /**

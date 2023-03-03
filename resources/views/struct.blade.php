@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        @livewireStyles
 
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -26,7 +27,6 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-dark sticky-top">
@@ -122,7 +122,8 @@
 
             </div>
         </nav>
-
+        @livewireScripts
         @yield('Content')
+
     </body>
 </html>
