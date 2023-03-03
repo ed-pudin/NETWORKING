@@ -28,7 +28,7 @@ class IndexCompany extends Component
     public function search(){
 
         $studentsInterestsTemp = studentInterests::select('student_interests.student')
-                                    ->join('interests', 'interests.id', '=', 'student_interests.id')
+                                    ->join('interests', 'interests.id', '=', 'student_interests.interests')
                                     ->where('interests.name','like', '%'.$this->searchTxt.'%')->distinct()->get();
 
         $studentsTemp = array();

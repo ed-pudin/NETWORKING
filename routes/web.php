@@ -32,7 +32,7 @@ Route::resource('inicioSesion', LoginController::class, [
 ]);
 
 Route::group(['middleware' => 'isAdmin'], function () {
-    
+
 });
 
 Route::group(['middleware' => 'isCompany'], function () {
@@ -40,13 +40,29 @@ Route::group(['middleware' => 'isCompany'], function () {
     Route::resource('empresa', CompanyController::class, [
         //1. Vista principal de empresa (cartas de estudiantes)
         'index' => 'empresa.index',
-        //2. Vista principal de una empresa
+        //2. Vista perfil de una empresa
         'show' => 'empresa.show',
     ]);
 
     Route::resource('empresaEstudiante', StudentController::class, [
         //2. Vista principal de un estudiante desde una empresa
         'show' => 'empresaEstudiante.show',
+    ]);
+
+});
+
+Route::group(['middleware' => 'isStudent'], function () {
+
+    Route::resource('estudiante', StudentController::class, [
+        //1. Vista principal de un estudiante (cartas de empresas)
+        'index' => 'estudiante.index',
+        //2. Vista perfil de un estudiante
+        'show' => 'estudiante.show',
+    ]);
+
+    Route::resource('estudianteEmpresa', CompanyController::class, [
+        //2. Vista principal de un estudiante desde una empresa
+        'show' => 'empresa.show',
     ]);
 
 

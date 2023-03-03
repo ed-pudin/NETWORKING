@@ -45,7 +45,7 @@ class LoginController extends Controller
             }else if ($user->rol == 'company'){
                 return redirect()->route('empresa.index');
             }else if($user->rol == 'student'){
-                return redirect('/');
+                return redirect()->route('estudiante.index');
             }
         }
         else{

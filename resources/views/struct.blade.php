@@ -74,7 +74,7 @@
                                 @endif
 
                                 @if(!empty($student))
-                                href="{{route('student.index')}}">
+                                href="{{route('estudiante.index')}}">
                                 @endif
 
                                 <p style="text-decoration: underline" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INICIO </p>
@@ -95,7 +95,7 @@
                                         href="{{route('empresa.show', $id)}}">
                                     @endif
                                     @if(!empty($student))
-                                        href="{{route('student.show', $id)}}">
+                                        href="{{route('estudiante.show', $id)}}">
                                     @endif
                                     <p class="my-0 mx-2 nav-txt nav-index"> <i class="bi bi-person-fill"></i>
                                         @if(!empty($company))

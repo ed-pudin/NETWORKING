@@ -1,9 +1,8 @@
-
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="container col-md-10 col-sm-12 d-flex justify-content-center">
 
-          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false" wire:model="searchTxt" wire:keyup="search">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false">
 
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
@@ -20,40 +19,39 @@
 
             <div class="all-areas">
                 @foreach ($allInterests as $singleInterest)
-                    <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="" >{{$singleInterest->name}}</button>
+                <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="" >{{$singleInterest->name}}</button>
                 @endforeach
             </div>
+
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
             <div class="selected-area" id="selected-area">
 
+
             </div>
         </div>
 
+
         <div class="d-flex flex-wrap justify-content-center">
-            @if (count($students)==0)
+            @if (count($companies)==0)
                 <h5>No hay estudiantes</h5>
             @endif
 
-            @foreach ($students as $student)
+            @foreach ($companies as $company)
                 <div class="card col-12 col-md-4 studentsCards">
                     <div class="d-lg-flex">
-                        <div class="" style="background-color: #141424" >
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAJZZoEhCvLquyDxHONSY6Qbzp2yrXQs_fGFyUF-K3oKpfKOdAMeRMLl-OQestasHpspI&usqp=CAU" class="img-fluid p-2 rounded-circle" style="height:200px; width:200px;cursor:pointer" onclick="alert('cicl');">
-                        </div>
                         <div class="col" onclick="alert('cicl');" style="cursor:pointer">
                             <div class="card-body">
-                                <h5 class="card-title student-fullname"> Edna Alexandra Lecea Contreras</h5>
+                                <h5 class="card-title student-fullname"> {{$company->fullName}}</h5>
                                 <div class="card-subtitle">
-                                <div class="text-white">Linkedin: <a href="https://www.linkedin.com/in/edna-lecea-contreras-9bbb9a261/">edna-lecea-contreras</a></div>
+                                <div class="text-white">Linkedin: <a href="{{$company->linkedin}}">{{$company->linkedin}}</a></div>
                                 </div>
                                 <div class="all-areas mt-1">
                                     @php
-                                        $interests = new App\Models\studentInterests;
-                                        $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
-                                                                                ->where('student', '=', $student->id)->get();
+                                        $interests = new App\Models\companyInterests;
+                                        $interests = App\Models\companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')
+                                                                                ->where('company', '=', $company->id)->get();
                                     @endphp
-
                                 @if (count($interests) == 0)
                                     <h5 style="font-size:.9rem; ">No hay intereses</h5>
                                 @endif
@@ -72,6 +70,6 @@
 
     </div>
 
+
+
 </div>
-
-

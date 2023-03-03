@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\student;
+use App\Models\company;
+use App\Models\interests;
 
 class StudentController extends Controller
 {
@@ -15,7 +16,13 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        $companies = new company();
+        $companies = company::all();
+
+        $allInterests = interests::all();
+
+
+        return view('students.index', compact('companies', 'allInterests'));
     }
 
     /**
@@ -48,10 +55,15 @@ class StudentController extends Controller
     public function show($id)
     {
         //Mostrar un alumno
-        $student = new App\Models\student();
-        $student = App\Models\student::where('user', '=', $user->id)->first();
+        $student = new student();
+        $student = student::where('user', '=', $id)->first();
 
-        return view('students.profile', compact('student'));
+        //Mostrar intereses
+        $interests = new studentInterests();
+        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.id')->where('student', '=', $student->id)->get();
+
+
+        return view('students.profile', compact('student', 'interests'));
     }
 
     /**
