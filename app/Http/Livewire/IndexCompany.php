@@ -35,7 +35,7 @@ class IndexCompany extends Component
 
         for($i= 0; $i< count($studentsInterestsTemp); $i++){
 
-            array_push($studentsTemp, student::select('id')->where('id', '=', $studentsInterestsTemp[$i]->student)->first());
+            array_push($studentsTemp, student::where('id', '=', $studentsInterestsTemp[$i]->student)->first());
         }
 
         $this->students = $studentsTemp;

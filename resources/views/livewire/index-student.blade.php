@@ -2,7 +2,7 @@
 
     <div class="container col-md-10 col-sm-12 d-flex justify-content-center">
 
-          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false"  wire:model="searchTxt" wire:keyup="search">
 
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
@@ -34,7 +34,7 @@
 
         <div class="d-flex flex-wrap justify-content-center">
             @if (count($companies)==0)
-                <h5>No hay estudiantes</h5>
+                <h5>No hay empresas</h5>
             @endif
 
             @foreach ($companies as $company)

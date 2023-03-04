@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\company;
 use App\Models\interests;
+use App\Models\student;
+use App\Models\studentInterests;
 
 class StudentController extends Controller
 {

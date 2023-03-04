@@ -43,9 +43,9 @@
                         </div>
                         <div class="col" onclick="alert('cicl');" style="cursor:pointer">
                             <div class="card-body">
-                                <h5 class="card-title student-fullname"> Edna Alexandra Lecea Contreras</h5>
+                                <h5 class="card-title student-fullname"> {{$student->fullName}}</h5>
                                 <div class="card-subtitle">
-                                <div class="text-white">Linkedin: <a href="https://www.linkedin.com/in/edna-lecea-contreras-9bbb9a261/">edna-lecea-contreras</a></div>
+                                <div class="text-white">Linkedin: <a href="{{$student->linkedin}}">{{$student->linkedin}}</a></div>
                                 </div>
                                 <div class="all-areas mt-1">
                                     @php
