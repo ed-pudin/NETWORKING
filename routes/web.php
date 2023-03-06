@@ -31,6 +31,30 @@ Route::resource('inicioSesion', LoginController::class, [
     'store' => 'inicioSesion.store'
 ]);
 
+Route::get('profile', function () {
+    return view('company.profile');
+});
+Route::get('profileEst', function () {
+    return view('students.companyProfile');
+});
+Route::get('catalogue', function () {
+    return view('company.catalogue');
+});
+Route::get('admin', function () {
+    return view('admin.index');
+});
+Route::get('register-company', function () {
+    return view('admin.register.company');
+});
+Route::get('register-student', function () {
+    return view('admin.register.student');
+});
+// Sin usar
+Route::get('register-graduated', function () {
+    return view('admin.register.graduated');
+});
+
+
 Route::group(['middleware' => 'isAdmin'], function () {
 
 });

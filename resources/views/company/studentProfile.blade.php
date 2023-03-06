@@ -2,7 +2,7 @@
 @section('Content')
 
 <div class="background container-fluid min-vh-100">
-    <div class="netw-inicio" style="">
+    <div class="netw-inicio">
 
         <div class="col-12 col-md-9 mx-auto">
 

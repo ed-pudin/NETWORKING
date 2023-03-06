@@ -201,19 +201,23 @@ a:hover {
 
 .btn-secondary, .swal2-styled.swal2-cancel {
     color: snow;
-    background-color: #39f6e4;
+    background-color: #23baab;
     border: none;
     border-radius: 15px;
 }
 
 .btn-secondary:focus .swal2-styled.swal2-cancel:focus {
-    box-shadow: 0 0 5px 2px #21decb;
+    box-shadow: 0 0 5px 2px #23baab;
 }
 
 .btn-secondary:hover, .swal2-styled.swal2-cancel:hover {
-    background-color: #21decb;
-    box-shadow: 0 0 5px 2px #21decb;
+    background-color: #23baab;
+    box-shadow: 0 0 5px 2px #23baab;
     border: none;
+}
+
+.btn-secondary.active {
+    background-color: #0de4fe!important;
 }
 
 .btn-programming{
@@ -402,6 +406,14 @@ tbody, td, tfoot, th, thead, tr {
 td {
     border-color: #21decb;
     border-bottom-width: 0.1rem;
+}
+
+td img {
+    min-height: 50px; 
+    min-width: 50px; 
+    max-height: 50px; 
+    max-width: 50px; 
+    border-radius: 50%;
 }
 
 thead{
