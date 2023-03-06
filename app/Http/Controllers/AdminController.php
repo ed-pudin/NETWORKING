@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\company;
-use App\Models\companyInterests;
-use App\Models\student;
-use App\Models\interests;
 
-class CompanyController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +13,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //Lista de estudiantes
-        $students = new student();
-        $students = student::all();
+        //Tab alumnos y empresas
 
-        $allInterests = interests::all();
-
-
-        return view('company.index', compact('students', 'allInterests'));
+        return view('admin.index');
     }
 
     /**
@@ -35,7 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.register.company');
+        //
     }
 
     /**
@@ -57,14 +47,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //Mostrar una empresa
-        $company = new company();
-        $company = company::where('user', '=', $id)->first();
-
-        //Mostrar intereses
-        $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.id')->where('company', '=', $company->id)->get();
-        return view('company.profile', compact('company', 'interests'));
+        //
     }
 
     /**

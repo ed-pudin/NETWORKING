@@ -18,7 +18,7 @@
             </h1>
 
             <div class="text-white text-center">Linkedin: <br>
-                <a href="{{$student->linkedin}}">{{$student->linkedin}}</a>
+                <a target="_blank" href="{{$student->linkedin}}"style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$student->fullName}}</i></a>
             </div>
 
             <div class="text-white text-center">Exposiciones: <br>

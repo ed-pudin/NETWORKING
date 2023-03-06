@@ -12,9 +12,9 @@
                     <li class="nav-item mx-auto" role="admin-index">
                         <button onclick="window.scrollTo(0, 0);" style="color:#000;" class=" btn-secondary p-2" id="all-students-tab" data-bs-toggle="tab" data-bs-target="#all-students" type="button" role="tab" aria-controls="all-students" aria-selected="false">Alumnos</button>
                     </li>
-                    <li class="nav-item mx-auto" role="admin-index">
+                    {{--  <li class="nav-item mx-auto" role="admin-index">
                         <button onclick="window.scrollTo(0, 0);" style="color:#000;" class="btn-secondary p-2" id="all-graduates-tab" data-bs-toggle="tab" data-bs-target="#all-graduates" type="button" role="tab" aria-controls="all-graduates" aria-selected="false">Egresados</button>
-                    </li>
+                    </li>  --}}
                 </ul>
             </div>
             <div class="row" >
@@ -25,7 +25,6 @@
                             <table class="table" style="text-align-last:center;">
                                 <thead>
                                     <tr>
-                                        <th>Imagen</th>
                                         <th>Empresa</th>
                                         <th>Linkedin</th>
                                         <th>Intereses</th>
@@ -36,7 +35,6 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td> <img src="https://cdn2.coppel.com/wcsstore/AuroraStorefrontAssetStore/emarketing/OpenGraph/og_coppel.jpg" alt="" > </td>
                                         <td> Coppel </td>
                                         <td> <a href="" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> Coppel </i></a> </td>
                                         <td> <a href="" style="text-decoration: none;"> <i class="bi bi-search" style="font-style:normal;"> Intereses </i></a> </td>
@@ -51,12 +49,12 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="12"> <a href="" > <i class="bi bi-plus-circle"> Agregar Empresa </i></a></td>
+                                        <td colspan="12"> <a href="{{route('adminEmpresa.create')}}" > <i class="bi bi-plus-circle"> Agregar Empresa </i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
 
                     <div class="tab-pane show" id="all-students" aria-labelledby="all-students-tab">
@@ -92,7 +90,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="12"> <a href="" > <i class="bi bi-plus-circle"> Agregar Alumno </i></a></td>
+                                        <td colspan="12"> <a href="{{route('adminEstudiante.create')}}" > <i class="bi bi-plus-circle"> Agregar Alumno </i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -100,7 +98,7 @@
 
                     </div>
 
-                    <div class="tab-pane show" id="all-graduates" aria-labelledby="all-students-tab">
+                    {{--  <div class="tab-pane show" id="all-graduates" aria-labelledby="all-students-tab">
 
                         <div class="table-responsive">
                             <table class="table" style="text-align-last:center;">
@@ -139,12 +137,12 @@
                             </table>
                         </div>
 
-                    </div>
+                    </div>  --}}
 
                 </div>
             </div>
         </div>
     </div>
-    
+
 </div>
 @endsection

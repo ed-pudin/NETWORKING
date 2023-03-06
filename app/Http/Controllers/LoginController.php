@@ -41,7 +41,7 @@ class LoginController extends Controller
 
             session()->put('id', $user->id);
             if($user->rol == 'admin'){
-                return redirect('/');
+                return redirect()->route('admin.index');
             }else if ($user->rol == 'company'){
                 return redirect()->route('empresa.index');
             }else if($user->rol == 'student'){

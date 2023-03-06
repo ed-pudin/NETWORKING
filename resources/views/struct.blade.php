@@ -64,6 +64,12 @@
                                     $student = new App\Models\student();
                                     $student = App\Models\student::where('user', '=', $user->id)->first();
                                 }
+                                if($rol == 'admin')
+                                {
+                                    $admin = new App\Models\user();
+                                    $admin = App\Models\user::where('id', '=', $user->id)->first();
+                                }
+
                             }
 
                         @endphp
@@ -75,7 +81,11 @@
                                 @endif
 
                                 @if(!empty($student))
-                                href="{{route('estudiante.index')}}">
+                                    href="{{route('estudiante.index')}}">
+                                @endif
+
+                                @if(!empty($admin))
+                                    href="{{route('admin.index')}}">
                                 @endif
 
                                 <p style="text-decoration: underline" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INICIO </p>
@@ -98,12 +108,18 @@
                                     @if(!empty($student))
                                         href="{{route('estudiante.show', $id)}}">
                                     @endif
+                                    @if(!empty($admin))
+                                        href="{{route('admin.index')}}">
+                                    @endif
                                     <p class="my-0 mx-2 nav-txt nav-index"> <i class="bi bi-person-fill"></i>
                                         @if(!empty($company))
                                             {{$company->fullName}}
                                         @endif
                                         @if(!empty($student))
                                             {{$student->fullName}}
+                                        @endif
+                                        @if(!empty($admin))
+                                            Administrador
                                         @endif
                                     </p>
                                 </a>

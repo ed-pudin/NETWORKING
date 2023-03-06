@@ -5,6 +5,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,32 +32,31 @@ Route::resource('inicioSesion', LoginController::class, [
     'store' => 'inicioSesion.store'
 ]);
 
-Route::get('profile', function () {
-    return view('company.profile');
-});
-Route::get('profileEst', function () {
-    return view('students.companyProfile');
-});
-Route::get('catalogue', function () {
-    return view('company.catalogue');
-});
-Route::get('admin', function () {
-    return view('admin.index');
-});
-Route::get('register-company', function () {
-    return view('admin.register.company');
-});
-Route::get('register-student', function () {
-    return view('admin.register.student');
-});
-// Sin usar
-Route::get('register-graduated', function () {
-    return view('admin.register.graduated');
-});
-
 
 Route::group(['middleware' => 'isAdmin'], function () {
 
+    Route::resource('admin', AdminController::class, [
+        //1. Vista principal de administrador (tab de alumnos y empresas)
+        'index' => 'admin.index',
+    ]);
+
+    Route::resource('adminEmpresa', CompanyController::class, [
+        //1. Vista principal de registro empresa
+        'create' => 'adminEmpresa.create',
+        //2. Guardar
+        'store' => 'adminEmpresa.store',
+        //3. Vista para editar
+        //4. Guardar editar
+    ]);
+
+    Route::resource('adminEstudiante', StudentController::class, [
+        //1. Vista principal de registro alumno
+        'create' => 'adminEstudiante.create',
+        //2. Guardar
+        'store' => 'adminEstudiante.store',
+        //3. Vista para editar
+        //4. Guardar editar
+    ]);
 });
 
 Route::group(['middleware' => 'isCompany'], function () {
