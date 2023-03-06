@@ -18,8 +18,12 @@
             </h1>
 
             <div class="text-white text-center">Linkedin: <br>
-                <a href="{{$student->linkedin}}">{{$student->linkedin}}</a></a></div>
+                <a href="{{$student->linkedin}}">{{$student->linkedin}}</a>
+            </div>
 
+            <div class="text-white text-center">Exposiciones: <br>
+                    2023 , 2021 , 2023 $loop->last
+            </div>
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
             @if($interests != null)
