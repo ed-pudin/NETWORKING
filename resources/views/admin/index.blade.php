@@ -1,5 +1,89 @@
 @extends('struct')
 @section('Content')
+
+@if(session()->has('status'))
+
+<script type="text/javascript">
+    @if(session()->get('status') == "Empresa registrada")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Hubo un problema en el registro")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor:'#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Se eliminó correctamente")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Hubo un problema en la eliminación")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+</script>
+    @php
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    @endphp
+@endif
+
+<script>
+
+    function confirmDialog(triggerBtnId) {
+        Swal.fire({
+            title: '¿Confirmar cambios?',
+            showDenyButton: false,
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(triggerBtnId).click();
+            }
+        })
+    }
+</script>
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="">
@@ -27,30 +111,61 @@
                                     <tr>
                                         <th>Empresa</th>
                                         <th>Linkedin</th>
+                                        <th>Correo</th>
+                                        <th>Contraseña</th>
                                         <th>Intereses</th>
                                         <th>Editar</th>
                                         <th>Borrar</th>
-                                        <th>Info</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> Coppel </td>
-                                        <td> <a href="" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> Coppel </i></a> </td>
-                                        <td> <a href="" style="text-decoration: none;"> <i class="bi bi-search" style="font-style:normal;"> Intereses </i></a> </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-trash"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-eye"></i></a>
-                                        </td>
-                                    </tr>
+
+                                    @foreach ($companies as $cmpy)
+                                        <tr>
+                                            <td> {{$cmpy->fullName}} </td>
+                                            <td> <a target="_blank" href="{{$cmpy->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;">  {{$cmpy->fullName}} </i></a> </td>
+                                            <td>
+                                                @php
+                                                    $user = new App\Models\User;
+                                                    $user = App\Models\User::join('companies', 'companies.user', '=', 'users.id')
+                                                                                            ->where('companies.user', '=', $cmpy->user)->first();
+                                                @endphp
+                                                <p>{{$user->email}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{$user->password}}</p>
+                                            </td>
+                                            <td>
+                                                @php
+                                                $interests = new App\Models\companyInterests;
+                                                $interests = App\Models\companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')
+                                                                                        ->where('company', '=', $cmpy->id)->get();
+                                                    @endphp
+                                                @if (count($interests) == 0)
+                                                    <h5 style="font-size:.9rem; ">No hay intereses</h5>
+                                                @endif
+                                                @foreach ($interests as $interest )
+                                                    <p class="mb-0">{{$interest->name}}</p>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
+                                            </td>
+                                            <td>
+                                                <form action="{{route('adminEmpresa.destroy', [$cmpy->id])}}" method="POST" hidden>
+                                                    @method('DELETE')
+                                                    @csrf
+                                                        <button id="delete_{{$cmpy->id}}" type="submit"> DESTROY </button>
+                                                </form>
+                                                <a onclick="confirmDialog(`delete_{{$cmpy->id}}`)" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                     <tr>
                                         <td colspan="12"> <a href="{{route('adminEmpresa.create')}}" > <i class="bi bi-plus-circle"> Agregar Empresa </i></a></td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>

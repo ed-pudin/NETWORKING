@@ -409,10 +409,10 @@ td {
 }
 
 td img {
-    min-height: 50px; 
-    min-width: 50px; 
-    max-height: 50px; 
-    max-width: 50px; 
+    min-height: 50px;
+    min-width: 50px;
+    max-height: 50px;
+    max-width: 50px;
     border-radius: 50%;
 }
 
@@ -617,7 +617,6 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 
 .card-profile{
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 8px 16px -8px rgba(0,0,0,0.4);
-    background-color: rgb(42, 40, 68);
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 6px;

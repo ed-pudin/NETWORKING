@@ -16,7 +16,7 @@
             </div>
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
-            @if($interests != null)
+            @if(count($interests) != 0)
             <h5 class="text-center mt-5">Áreas de interes</h5>
 
             <div class="d-flex justify-content-center">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\company;
 
 class AdminController extends Controller
 {
@@ -14,8 +15,8 @@ class AdminController extends Controller
     public function index()
     {
         //Tab alumnos y empresas
-
-        return view('admin.index');
+        $companies = company::all();
+        return view('admin.index', compact('companies'));
     }
 
     /**
