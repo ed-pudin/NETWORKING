@@ -47,7 +47,11 @@ Route::group(['middleware' => 'isAdmin'], function () {
         //2. Guardar
         'store' => 'adminEmpresa.store',
         //3. Vista para editar
+        'edit' => 'adminEmpresa.edit',
         //4. Guardar editar
+        'update' => 'adminEmpresa.update',
+        //5. Eliminar
+        'destroy' => 'adminEmpresa.destroy'
     ]);
 
     Route::resource('adminEstudiante', StudentController::class, [

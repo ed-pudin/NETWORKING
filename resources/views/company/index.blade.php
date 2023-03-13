@@ -53,6 +53,7 @@
         $("#selected-area button#"+index).remove();
 
         $(".all-areas button#"+index).show();
+
     }
 </script>
 

@@ -34,9 +34,10 @@
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="sticky-center">
-        <form class="row align-items-center p-5" id="registroEmpresa" action="{{route('adminEmpresa.store')}}" method="post">
+        <form class="row align-items-center p-5" id="registroEmpresa" action="{{route('adminEmpresa.update', [$cmpy->id])}}" method="post">
             @csrf
-            <h1 class="mb-5" style="text-align: center;"> Registrando Empresa </h1>
+            @method('PUT')
+            <h1 class="mb-5" style="text-align: center;"> Editando Empresa </h1>
             <div class="row">
 
                 <div class="col-md-8 col-sm-12 col-12 mx-auto mt-5 mt-md-0 p-md-5">
@@ -49,7 +50,7 @@
                                     <h5 class="mb-0"  style="align-self: top;">Nombre de la Empresa</h5>
                                 </div>
                                 <div class="col-sm-7 text-secondary">
-                                    <input class="form-control col-11" type="text" name="regCompanyName" id="regCompanyName" required>
+                                    <input class="form-control col-11" type="text" name="regCompanyName" id="regCompanyName" value="{{$cmpy->fullName}}"required>
                                 </div>
                             </div>
 
@@ -61,7 +62,7 @@
                                     </svg>  --}}
                                 </div>
                                 <div class="col-sm-7 text-secondary">
-                                    <input class="form-control col-11" type="text" name="regCompanyLinkedin" id="regCompanyLinkedin" required>
+                                    <input class="form-control col-11" type="text" name="regCompanyLinkedin" id="regCompanyLinkedin" value="{{$cmpy->linkedin}}" required>
                                     <span style="color:snow; opacity: 30%">Inserte el link</span>
                                 </div>
                             </div>
@@ -74,12 +75,36 @@
                                     <div class="form-floating">
                                         <select class="form-select col-11" id="regCompanyInterests" name="regCompanyInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
                                             @foreach ($allInterests as $interest)
-                                                <option value="{{$interest->id}}">{{$interest->name}}</option>
+                                                <option value="{{$interest->id}}"
+                                                    @foreach ($interests as $int)
+                                                        @if($interest->id == $int->id)
+                                                        selected
+                                                        @endif
+                                                    @endforeach
+                                                    >{{$interest->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <span style="color:snow; opacity: 30%">Seleccione uno o más intereses</span>
 
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-5" style="align-self: end;">
+                                    <h5 class="mb-0"  style="align-self: top;">Correo</h5>
+                                </div>
+                                <div class="col-sm-7 text-secondary">
+                                    <input class="form-control col-11" type="text" name="regCompanyEmail" id="regCompanyEmail" value="{{$user->email}}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-5" style="align-self: end;">
+                                    <h5 class="mb-0"  style="align-self: top;">Contraseña</h5>
+                                </div>
+                                <div class="col-sm-7 text-secondary">
+                                    <input class="form-control col-11" type="text" name="regCompanyPass" id="regCompanyPass" value="{{$user->password}}" required>
                                 </div>
                             </div>
 
@@ -91,7 +116,7 @@
 
 
                 <div class="col-12 my-5" style="text-align:center;">
-                    <button id="regCompany" type="submit" class="col-md-4 col-sm-12 btn btn-primary">REGISTRAR</button>
+                    <button id="regCompany" type="submit" class="col-md-4 col-sm-12 btn btn-primary">ENVIAR</button>
                 </div>
 
         </form>

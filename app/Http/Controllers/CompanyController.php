@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\company;
 use App\Models\companyInterests;
@@ -35,7 +36,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.register.company');
+        $allInterests = interests::all();
+        return view('admin.register.company', compact('allInterests'));
     }
 
     /**
@@ -46,7 +48,46 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $email = Str::lower($request->regCompanyName);
+
+        $userCompany = new User();
+        $userCompany->email = $email.'@net.working.com';
+        $userCompany->password = Str::random(13);
+        $userCompany->rol = 'company';
+
+        if($userCompany->save()){
+            $company = new company();
+
+            $company->fullName = $request->regCompanyName;
+            $company->linkedin = $request->regCompanyLinkedin;
+            $company->user = $userCompany->id;
+
+            if($company->save()){
+
+                if($request->regCompanyInterests != null){
+                    foreach($request->regCompanyInterests as $regCompanyInterest){
+                        $companyInt = new companyInterests();
+                        $companyInt->interests = $regCompanyInterest;
+                        $companyInt->company = $company->id;
+
+                        if($companyInt->save())
+                            session()->flash("status","Empresa registrada");
+                        else
+                            session()->flash("status","Hubo un problema en el registro");
+                    }
+                }else{
+                    session()->flash("status","Empresa registrada");
+                }
+
+            }else{
+                session()->flash("status","Hubo un problema en el registro");
+            }
+        }else{
+            session()->flash("status","Hubo un problema en el registro");
+        }
+
+        return redirect()->route('admin.index');
+
     }
 
     /**
@@ -63,7 +104,8 @@ class CompanyController extends Controller
 
         //Mostrar intereses
         $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.id')->where('company', '=', $company->id)->get();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $company->id)->get();
+
         return view('company.profile', compact('company', 'interests'));
     }
 
@@ -75,7 +117,20 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Vista de editar
+        $cmpy = new company();
+        $cmpy = company::where('id', '=', $id)->first();
+
+        //Mostrar intereses
+        $interests = new companyInterests();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $cmpy->id)->get();
+
+        $allInterests = interests::all();
+
+        $user = new User();
+        $user = User::where('id', '=', $cmpy->user)->first();
+
+        return view('admin.edit.company', compact('cmpy', 'interests', 'allInterests', 'user'));
     }
 
     /**
@@ -87,7 +142,52 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Editar
+        $cmpy = new company();
+        $cmpy = company::where('id', '=', $id)->first();
+
+        $cmpy->fullName = $request->regCompanyName;
+        $cmpy->linkedin = $request->regCompanyLinkedin;
+
+        $user = new User();
+        $user = User::where('id', '=', $cmpy->user)->first();
+
+        $user->password = $request->regCompanyPass;
+
+        $interests = new companyInterests();
+        $interests = companyInterests::where('company', '=', $id)->get();
+
+        foreach($interests as $interest)
+        {
+            if(!($interest->delete()))
+            {
+                session()->flash("status","Hubo un problema en la edición");
+                return redirect()->route('admin.index');
+            }
+        }
+
+        if($request->regCompanyInterests != null){
+            foreach($request->regCompanyInterests as $regCompanyInterest){
+                $companyInt = new companyInterests();
+                $companyInt->interests = $regCompanyInterest;
+                $companyInt->company = $cmpy->id;
+
+                if(!($companyInt->save())){
+                    session()->flash("status","Hubo un problema en la edición");
+                    return redirect()->route('admin.index');
+                }
+
+            }
+        }else{
+            session()->flash("status","Se editó correctamente");
+        }
+
+        if($user->save() && $cmpy->save()){
+            session()->flash("status","Se editó correctamente");
+        }else{
+            session()->flash("status","Hubo un problema en la edición");
+        }
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -98,6 +198,42 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //Eliminar company interests
+        //Eliminar usuario
+        //Eliminar empresa
+
+        $interests = new companyInterests();
+        $interests = companyInterests::where('company', '=', $id)->get();
+
+        foreach($interests as $interest)
+        {
+            if(!($interest->delete()))
+            {
+                session()->flash("status","Hubo un problema en el registro");
+                return redirect()->route('admin.index');
+            }
+        }
+
+
+        $company = new company();
+        $company = company::where('id', '=', $id)->first();
+
+        $user = new user();
+        $user = User::where('id', '=', $company->user)->first();
+
+        if($company->delete()){
+            if($user->delete()){
+
+                session()->flash("status","Se eliminó correctamente");
+                return redirect()->route('admin.index');
+            }else{
+                session()->flash("status","Hubo un problema en la eliminación");
+                return redirect()->route('admin.index');
+            }
+        }else{
+            session()->flash("status","Hubo un problema en la eliminación");
+            return redirect()->route('admin.index');
+        }
+
     }
 }
