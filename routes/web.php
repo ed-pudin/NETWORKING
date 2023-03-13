@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InterestsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +58,17 @@ Route::group(['middleware' => 'isAdmin'], function () {
         //3. Vista para editar
         //4. Guardar editar
     ]);
+
+    Route::resource('adminInterests', InterestsController::class,[
+        'index' => 'adminInterests.index',
+        'show' => 'adminInterests.show',
+        'create' => 'adminInterests.create',
+        'store' => 'adminInterests.store',
+        'destroy' => 'adminInterests.destroy',
+    ]);
 });
+
+
 
 Route::group(['middleware' => 'isCompany'], function () {
 
