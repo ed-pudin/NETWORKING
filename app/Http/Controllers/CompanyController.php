@@ -104,7 +104,8 @@ class CompanyController extends Controller
 
         //Mostrar intereses
         $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.id')->where('company', '=', $company->id)->get();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $company->id)->get();
+
         return view('company.profile', compact('company', 'interests'));
     }
 
@@ -116,7 +117,20 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Vista de editar
+        $cmpy = new company();
+        $cmpy = company::where('id', '=', $id)->first();
+
+        //Mostrar intereses
+        $interests = new companyInterests();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $cmpy->id)->get();
+
+        $allInterests = interests::all();
+
+        $user = new User();
+        $user = User::where('id', '=', $cmpy->user)->first();
+
+        return view('admin.edit.company', compact('cmpy', 'interests', 'allInterests', 'user'));
     }
 
     /**
@@ -128,7 +142,52 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Editar
+        $cmpy = new company();
+        $cmpy = company::where('id', '=', $id)->first();
+
+        $cmpy->fullName = $request->regCompanyName;
+        $cmpy->linkedin = $request->regCompanyLinkedin;
+
+        $user = new User();
+        $user = User::where('id', '=', $cmpy->user)->first();
+
+        $user->password = $request->regCompanyPass;
+
+        $interests = new companyInterests();
+        $interests = companyInterests::where('company', '=', $id)->get();
+
+        foreach($interests as $interest)
+        {
+            if(!($interest->delete()))
+            {
+                session()->flash("status","Hubo un problema en la edición");
+                return redirect()->route('admin.index');
+            }
+        }
+
+        if($request->regCompanyInterests != null){
+            foreach($request->regCompanyInterests as $regCompanyInterest){
+                $companyInt = new companyInterests();
+                $companyInt->interests = $regCompanyInterest;
+                $companyInt->company = $cmpy->id;
+
+                if(!($companyInt->save())){
+                    session()->flash("status","Hubo un problema en la edición");
+                    return redirect()->route('admin.index');
+                }
+
+            }
+        }else{
+            session()->flash("status","Se editó correctamente");
+        }
+
+        if($user->save() && $cmpy->save()){
+            session()->flash("status","Se editó correctamente");
+        }else{
+            session()->flash("status","Hubo un problema en la edición");
+        }
+        return redirect()->route('admin.index');
     }
 
     /**
