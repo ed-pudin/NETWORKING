@@ -1,10 +1,23 @@
 @extends('struct')
 @section('Content')
 
-@if(session()->has('status'))
 
 <script type="text/javascript">
     @if(session()->get('status') == "Empresa registrada")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Alumno registrado")
     document.addEventListener("DOMContentLoaded", function(){
         Swal.fire({
         position: 'center',
@@ -47,17 +60,17 @@
     @endif
 
     @if(session()->get('status') == "Hubo un problema en la eliminación")
-    document.addEventListener("DOMContentLoaded", function(){
-        Swal.fire({
-        position: 'center',
-        icon: 'success',
-        iconColor: '#0de4fe',
-        title: `{{ session()->get('status') }}`,
-        showConfirmButton: false,
-        timer: 1500
-        })
+        document.addEventListener("DOMContentLoaded", function(){
+            Swal.fire({
+            position: 'center',
+            icon: 'success',
+            iconColor: '#0de4fe',
+            title: `{{ session()->get('status') }}`,
+            showConfirmButton: false,
+            timer: 1500
+            })
 
-    });
+        });
     @endif
 
 </script>
@@ -66,7 +79,6 @@
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
     @endphp
-@endif
 
 <script>
 
@@ -84,6 +96,7 @@
         })
     }
 </script>
+
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="">
@@ -96,9 +109,6 @@
                     <li class="nav-item mx-auto" role="admin-index">
                         <button onclick="window.scrollTo(0, 0);" style="color:#000;" class=" btn-secondary p-2" id="all-students-tab" data-bs-toggle="tab" data-bs-target="#all-students" type="button" role="tab" aria-controls="all-students" aria-selected="false">Alumnos</button>
                     </li>
-                    {{--  <li class="nav-item mx-auto" role="admin-index">
-                        <button onclick="window.scrollTo(0, 0);" style="color:#000;" class="btn-secondary p-2" id="all-graduates-tab" data-bs-toggle="tab" data-bs-target="#all-graduates" type="button" role="tab" aria-controls="all-graduates" aria-selected="false">Egresados</button>
-                    </li>  --}}
                 </ul>
             </div>
             <div class="row" >
@@ -181,29 +191,55 @@
                                         <th>Imagen</th>
                                         <th>Alumno</th>
                                         <th>Linkedin</th>
+                                        <th>Correo</th>
+                                        <th>Contraseña</th>
                                         <th>Intereses</th>
-                                        <th>Editar</th>
                                         <th>Borrar</th>
-                                        <th>Info</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <!-- img ... svg?seed=" Nombre del alumno "-->
-                                        <td> <img src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar"/> </td>
-                                        <td> Alumno </td>
-                                        <td> <a href="" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> Alumno </i></a> </td>
-                                        <td> <a href="" style="text-decoration: none;"> <i class="bi bi-search" style="font-style:normal;"> Intereses </i></a> </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-trash"></i></a>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-eye"></i></a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($students as $student)
+
+                                        <tr>
+                                            <!-- img ... svg?seed=" Nombre del alumno "-->
+                                            <td> <img @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif alt="avatar"/> </td>
+                                            <td> {{$student->fullName}} </td>
+                                            <td> <a href="{{$student->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$student->fullName}} </i></a> </td>
+                                            <td>
+                                                @php
+                                                    $user = new App\Models\User;
+                                                    $user = App\Models\User::join('students', 'students.user', '=', 'users.id')
+                                                                                            ->where('students.user', '=', $student->user)->first();
+                                                @endphp
+                                                <p>{{$user->email}}</p>
+                                            </td>
+                                            <td>
+                                                <p>{{$user->password}}</p>
+                                            </td>
+                                            <td>
+                                                @php
+                                                $interests = new App\Models\studentInterests;
+                                                $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
+                                                                                        ->where('student', '=', $student->id)->get();
+                                                    @endphp
+                                                @if (count($interests) == 0)
+                                                    <h5 style="font-size:.9rem; ">No hay intereses</h5>
+                                                @endif
+                                                @foreach ($interests as $interest )
+                                                    <p class="mb-0">{{$interest->name}}</p>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <form action="{{route('adminEstudiante.destroy', [$student->id])}}" method="POST" hidden>
+                                                    @method('DELETE')
+                                                    @csrf
+                                                        <button id="delete_{{$student->id}}" type="submit"> DESTROY </button>
+                                                </form>
+                                                <a onclick="confirmDialog(`delete_{{$student->id}}`)" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-trash"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    @endforeach
                                     <tr>
                                         <td colspan="12"> <a href="{{route('adminEstudiante.create')}}" > <i class="bi bi-plus-circle"> Agregar Alumno </i></a></td>
                                     </tr>

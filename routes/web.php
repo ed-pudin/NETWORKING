@@ -53,11 +53,13 @@ Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::resource('adminEstudiante', StudentController::class, [
         //1. Vista principal de registro alumno
-        'create' => 'adminEstudiante.create',
+        'create'    => 'adminEstudiante.create',
         //2. Guardar
-        'store' => 'adminEstudiante.store',
+        'store'     => 'adminEstudiante.store',
         //3. Vista para editar
         //4. Guardar editar
+        //5. Eliminar
+        'destroy'   => 'adminEstudiante.destroy'
     ]);
 });
 

@@ -7,7 +7,7 @@
         <div class="col-12 col-md-9 mx-auto">
 
             <div class="col-12 text-center">
-                <img class="img img-fluid p-3 rounded-circle" src="{{$student->image}}" style="height: 300px; width:300px; object-fit: cover;" alt="FOTO PERFIL">
+                <img style="max-height:150px; min-height:150px; border-radius:50%;" @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif alt="avatar"/>
             </div>
 
             <h1 class="text-center">

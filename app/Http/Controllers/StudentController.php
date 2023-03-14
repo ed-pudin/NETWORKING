@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\company;
 use App\Models\interests;
 use App\Models\student;
 use App\Models\studentInterests;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -34,7 +36,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin.register.student');
+        $allInterests = interests::all();
+        return view('admin.register.student', compact('allInterests'));
     }
 
     /**
@@ -45,7 +48,58 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $email = Str::lower(str_replace(" ", "",$request->regStudentName));
+
+        $userStudent = new User();
+        $userStudent->email = $email.'@net.working.com';
+        $userStudent->password = Str::random(13);
+        $userStudent->rol = 'student';
+        
+
+        if($userStudent->save()){
+            $student = new student();
+
+            $student->fullName = $request->regStudentName;
+            $student->linkedin = $request->regStudentLinkedin;
+            $student->user = $userStudent->id;
+
+            if($request->regBtnStudentImg != null) {
+                $fileName = time().'_'.uniqid();
+                //Guardar archivo
+                Storage::disk('public')->put($fileName, file_get_contents($request->file('regBtnStudentImg')));
+            } else {
+                $fileName = null;
+            }
+
+            $student->image = $fileName;
+
+            if($student->save()){
+
+                if($request->regStudentInterests != null) {
+                    foreach($request->regStudentInterests as $regStudentInterest){
+                        $studentInt = new studentInterests();
+                        $studentInt->interests = $regStudentInterest;
+                        $studentInt->student = $student->id;
+
+                        if($studentInt->save()) {
+                            session()->flash("status","Alumno registrado");
+                        }
+                        else { 
+                            session()->flash("status","Hubo un problema en el registro");
+                        }
+                    }
+                } else {
+                    session()->flash("status","Alumno registrado");
+                }
+
+            } else {
+                session()->flash("status","Hubo un problema en el registro");
+            }
+        } else {
+            session()->flash("status","Hubo un problema en el registro");
+        }
+
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -99,6 +153,18 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(studentInterests::where('student',$id)->delete()) {
+
+            $student = student::find($id);
+
+            if($student->delete()) {
+                session()->flash("deleteStudent","Alumno eliminado correctamente");
+            } else {
+                session()->flash("deleteStudent","Ha ocurrido un error");
+            }
+
+            return redirect()->back();
+        }
+
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\company;
+use App\Models\student;
 
 class AdminController extends Controller
 {
@@ -16,7 +17,8 @@ class AdminController extends Controller
     {
         //Tab alumnos y empresas
         $companies = company::all();
-        return view('admin.index', compact('companies'));
+        $students = student::all();
+        return view('admin.index', compact('companies','students'));
     }
 
     /**

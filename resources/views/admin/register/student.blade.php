@@ -34,19 +34,20 @@
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="sticky-center">
-        <form class="row align-items-center p-5" id="registroEmpresa" action="" method="post">
+        <form class="row align-items-center p-5" id="registroEstudiante" enctype="multipart/form-data" action="{{route('adminEstudiante.store')}}" method="post">
+            @csrf
             <h1 style="text-align: center;"> Registrando Estudiante </h1>
             <div class="row">
 
                 <div class="col-lg-3 col-12 p-md-5 mx-auto">
                     <div class="mb-4 d-flex justify-content-center">
-                        <img width="300" height="200" onclick="document.getElementById('regStudentImg').click();" name="regStudentImg" id="regStudentImg" src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar"/>
+                        <img width="300" height="200" onclick="document.getElementById('regBtnStudentImg').click();" name="regStudentImg" id="regStudentImg" src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar"/>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <div class="btn btn-primary btn-rounded" onclick="document.getElementById('regStudentImg').click();">
-                            <label class="form-label text-white m-1" for="regStudentImg"><i class="bi bi-image-fill"></i></label>
-                            <input accept="image/*" type="file" class="form-control d-none" name="regStudentImg" id="regStudentImg" onchange="readURL(this)"/>
-                            <input name="originalImage" id="originalImage" type="text" value="" hidden></input>
+                        <div class="btn btn-primary btn-rounded" onclick="document.getElementById('regBtnStudentImg').click();">
+                            <label class="form-label text-white m-1" for="regBtnStudentImg"><i class="bi bi-image-fill"></i></label>
+                            <input accept="image/*" type="file" class="form-control d-none" name="regBtnStudentImg" id="regBtnStudentImg" onchange="readURL(this)"/>
+                            <input name="originalImage" id="originalImage" type="text" value="" hidden>
                         </div>
                     </div>
                 </div>
@@ -81,10 +82,9 @@
                    
                     <div class="form-floating" style="background-color: black;">
                         <select class="form-select" id="regStudentInterests" name="regStudentInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
-                            <option value="Animacion 2D"> Animacion 2D </option>
-                            <option value="Modelado 3D"> Animacion 2D </option>
-                            <option value="Desarrollo Web"> Desarrollo Web </option>
-                            <option value="Videojuegos"> Videojuegos </option>
+                            @foreach ($allInterests as $interest)
+                                <option value="{{$interest->id}}">{{$interest->name}}</option>
+                            @endforeach
                         </select>
                         <label for="regStudentInterests">Intereses</label>
                     </div>

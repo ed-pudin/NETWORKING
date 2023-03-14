@@ -103,14 +103,15 @@
                             <li class="nav-item">
                                 <a class="nav-link btn-w"
                                     @if(!empty($company))
-                                        href="{{route('empresa.show', $id)}}">
+                                        href="{{route('empresa.show', $id)}}"
                                     @endif
                                     @if(!empty($student))
-                                        href="{{route('estudiante.show', $id)}}">
+                                        href="{{route('estudiante.show', $id)}}"
                                     @endif
                                     @if(!empty($admin))
-                                        href="{{route('admin.index')}}">
-                                    @endif
+                                        href="{{route('admin.index')}}"
+                                    @endif>
+                                
                                     <p class="my-0 mx-2 nav-txt nav-index"> <i class="bi bi-person-fill"></i>
                                         @if(!empty($company))
                                             {{$company->fullName}}

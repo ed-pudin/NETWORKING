@@ -19,7 +19,7 @@
 
             <div class="all-areas">
                 @foreach ($allInterests as $singleInterest)
-                <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="" >{{$singleInterest->name}}</button>
+                <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="btn-primary" >{{$singleInterest->name}}</button>
                 @endforeach
             </div>
 
@@ -56,7 +56,7 @@
                                     <h5 style="font-size:.9rem; ">No hay intereses</h5>
                                 @endif
                                 @foreach ($interests as $interest )
-                                    <button type="button" class="" disabled>{{$interest->name}}</button>
+                                    <button type="button" class="btn-primary" disabled>{{$interest->name}}</button>
                                 @endforeach
 
                                 </div>
