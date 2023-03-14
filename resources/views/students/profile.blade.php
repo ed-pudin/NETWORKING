@@ -32,7 +32,7 @@
             <div class="d-flex justify-content-center">
 
                 @foreach ( $interests as $interest)
-                    <div class="card col-12 col-md-4 studentsCards">
+                    <div class="card col-12 col-md-3 studentsCards">
                         <div class="d-lg-flex">
                         <div class="col" >
                                 <div class="card-body">

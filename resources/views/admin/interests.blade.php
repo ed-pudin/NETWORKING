@@ -30,45 +30,28 @@
         <div class="row">
             <h1 class="text-center"> Intereses </h1>
         </div>
-        <form id="form">
+        <form id="form" method="POST" enctype="multipart/form-data" action="{{route('adminInterests.store')}}">
+            @csrf
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username" id="interest"/>
-                  <button class="btn-secondary">+</button>
+                <input name="interest" id="interest" type="text" class="form-control" placeholder="Recipient's username"/>
+                <button type="submit" class="btn-secondary">+</button>
             </div>
         </form>
-        <table class="table" id="table">
-            <tbody id="tbody">
-            </tbody>
-        </table>
-        <div class="row">
-            <div class="col-12" align="right">
-                <button class="btn-secondary" style="align:right;">Confirmar</button>
-            </div>
-        </div>
-        <script>
-            const formEl = document.querySelector("form");
-            const tbodyEl = document.querySelector("tbody");
-            const tableEl = document.querySelector("table");
-            function onAddWebsite(e) {
-              e.preventDefault();
-              const interest = document.getElementById("interest").value;
-              tbodyEl.innerHTML += `
-                  <tr>
-                      <td>${interest}</td>
-                      <td><button class="btn-primary">Delete</button></td>
+
+            <table class="table" id="table">
+                <tbody id="tbody">
+                @foreach ($interests as $interest)
+                <form id="delete" method="post" enctype="multipart/form-data" action="{{route('adminInterests.destroy', [$interest->id])}}">
+                @method('DELETE')
+                @csrf
+                <tr>
+                      <td>{{$interest->name}}</td>
+                      <td><button type="submit" class="btn-primary">Eliminar</button></td>
                   </tr>
-              `;
-            }
-                function onDeleteRow(e) {
-                  if (!e.target.classList.contains("btn-primary")) {
-                    return;
-                  }
-                  const btn = e.target;
-                  btn.closest("tr").remove();
-                }
-                formEl.addEventListener("submit", onAddWebsite);
-                tableEl.addEventListener("click", onDeleteRow);
-        </script>
+                </form>
+                @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

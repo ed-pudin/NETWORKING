@@ -60,17 +60,45 @@
     @endif
 
     @if(session()->get('status') == "Hubo un problema en la eliminación")
-        document.addEventListener("DOMContentLoaded", function(){
-            Swal.fire({
-            position: 'center',
-            icon: 'success',
-            iconColor: '#0de4fe',
-            title: `{{ session()->get('status') }}`,
-            showConfirmButton: false,
-            timer: 1500
-            })
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor: '#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Se editó correctamente")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
         });
+    @endif
+
+    @if(session()->get('status') == "Hubo un problema en la edición")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor: '#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
     @endif
 
 </script>
@@ -159,7 +187,7 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <a href="#" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
+                                                <a href="{{route('adminEmpresa.edit', [$cmpy->id])}}" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
                                             </td>
                                             <td>
                                                 <form action="{{route('adminEmpresa.destroy', [$cmpy->id])}}" method="POST" hidden>

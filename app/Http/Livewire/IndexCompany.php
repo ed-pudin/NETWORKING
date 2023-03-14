@@ -42,4 +42,5 @@ class IndexCompany extends Component
 
         $this->dispatchBrowserEvent('contentChanged');
     }
+
 }
