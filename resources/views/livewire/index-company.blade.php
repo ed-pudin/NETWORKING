@@ -58,7 +58,7 @@
                                     <h5 style="font-size:.9rem; ">No hay intereses</h5>
                                 @endif
                                 @foreach ($interests as $interest )
-                                    <button type="button" class="btn-primary" disabled>{{$interest->name}}</button>
+                                    <button type="button" class="btn-primary my-1" disabled>{{$interest->name}}</button>
                                 @endforeach
 
                                 </div>
