@@ -47,8 +47,6 @@
                               <input autocomplete="off" type="email" class="form-control" name="email" id="email" placeholder="Correo" required>
                             </div>
 
-
-
                         </div>
 
                         <div class="d-flex justify-content-center">

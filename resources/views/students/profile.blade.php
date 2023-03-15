@@ -60,4 +60,16 @@
     </div>
 </div>
 
+<script>
+
+
+    Livewire.on('backFnc', function (filter, index){
+        $('#backIcon').show();
+        $("#checkIcon").show();
+        $('#configIcon').hide();
+    });
+
+
+</script>
+
 @endsection
