@@ -9,9 +9,10 @@
             <h1 class="text-center"> {{$company->fullName}}
 
             </h1>
-            <div class="text-white text-center">Linkedin: <br>
-                <a target="_blank" href="{{$company->linkedin}}"style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$company->fullName}}</i></a>
-            </div>
+
+            <livewire:profile-company :company="$company" :idCompany="$company->id" :oldLinkedin="$company->linkedin"/>
+
+
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
             <livewire:interesting-areas :interests="$interests" :idCompany="$company->id"/>
@@ -28,6 +29,38 @@
         $('#backIcon').show();
         $("#checkIcon").show();
         $('#configIcon').hide();
+    });
+
+    Livewire.on('editLinkedin', function (filter, index){
+        $('#notFormEditLinkedin').hide();
+        $("#formEditLinkedin").show();
+    });
+
+    Livewire.on('stopEditing', function (filter, index){
+        $('#notFormEditLinkedin').show();
+        $("#formEditLinkedin").hide();
+    });
+
+    Livewire.on('saveEditingSuccess', function (filter, index){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `Editado exitoso`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+    });
+
+    Livewire.on('saveEditingFail', function (filter, index){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor: '#a70202',
+        title: `Editado exitoso`,
+        showConfirmButton: false,
+        timer: 1500
+        })
     });
 
 
