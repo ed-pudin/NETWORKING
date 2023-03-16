@@ -60,7 +60,9 @@ Route::group(['middleware' => 'isAdmin'], function () {
         //2. Guardar
         'store'     => 'adminEstudiante.store',
         //3. Vista para editar
+        'edit'      => 'adminEstudiante.edit',
         //4. Guardar editar
+        'update'    => 'adminEstudiante.update',
         //5. Eliminar
         'destroy'   => 'adminEstudiante.destroy'
     ]);

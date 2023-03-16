@@ -94,11 +94,12 @@
                 <div class="col-md-3 col-sm-12 p-md-5" >
                    
                    <div class="form-floating" style="background-color: black;">
-                       <select class="form-select" id="regStudentExpo" name="regStudentExpo[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
-                           <option value="2022"> EXPO 2022 </option>
-                           <option value="2023"> EXPO 2023 </option>
+                       <select class="form-select" id="regStudentExpos" name="regStudentExpos[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
+                        @foreach ($allExpos as $expo)
+                            <option value="{{$expo->id}}">{{$expo->year}}</option>
+                        @endforeach
                        </select>
-                       <label for="regStudentExpo">EXPO asistida</label>
+                       <label for="regStudentExpos">EXPO asistida</label>
                    </div>
 
                 </div>

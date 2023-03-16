@@ -101,6 +101,20 @@
     });
     @endif
 
+    @if(session()->get('status') == "Alumno editado correctamente")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
 </script>
     @php
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -222,6 +236,8 @@
                                         <th>Correo</th>
                                         <th>Contraseña</th>
                                         <th>Intereses</th>
+                                        <th>EXPOS</th>
+                                        <th>Editar</th>
                                         <th>Borrar</th>
                                     </tr>
                                 </thead>
@@ -246,16 +262,32 @@
                                             </td>
                                             <td>
                                                 @php
-                                                $interests = new App\Models\studentInterests;
-                                                $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
-                                                                                        ->where('student', '=', $student->id)->get();
-                                                    @endphp
+                                                    $interests = new App\Models\studentInterests;
+                                                    $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
+                                                                                            ->where('student', '=', $student->id)->get();
+                                                @endphp
                                                 @if (count($interests) == 0)
                                                     <h5 style="font-size:.9rem; ">No hay intereses</h5>
                                                 @endif
                                                 @foreach ($interests as $interest )
                                                     <p class="mb-0">{{$interest->name}}</p>
                                                 @endforeach
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $expos = new App\Models\studentExpo;
+                                                    $expos = App\Models\studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')
+                                                                                            ->where('student', '=', $student->id)->get();
+                                                @endphp
+                                                @if (count($expos) == 0)
+                                                    <h5 style="font-size:.9rem; ">NINGUNA (Esto no debería verse)</h5>
+                                                @endif
+                                                @foreach ($expos as $expo )
+                                                    <p class="mb-0">{{$expo->year}}</p>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <a href="{{route('adminEstudiante.edit', [$student->id])}}" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-pencil"></i></a>
                                             </td>
                                             <td>
                                                 <form action="{{route('adminEstudiante.destroy', [$student->id])}}" method="POST" hidden>
