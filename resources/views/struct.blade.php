@@ -61,8 +61,8 @@
                                 }
                                 if($rol == 'student')
                                 {
-                                    $student = new App\Models\student();
-                                    $student = App\Models\student::where('user', '=', $user->id)->first();
+                                    $std = new App\Models\student();
+                                    $std = App\Models\student::where('user', '=', $user->id)->first();
                                 }
                                 if($rol == 'admin')
                                 {
@@ -80,7 +80,7 @@
                                     href="{{route('empresa.index')}}">
                                 @endif
 
-                                @if(!empty($student))
+                                @if(!empty($std))
                                     href="{{route('estudiante.index')}}">
                                 @endif
 
@@ -105,19 +105,19 @@
                                     @if(!empty($company))
                                         href="{{route('empresa.show', $id)}}"
                                     @endif
-                                    @if(!empty($student))
+                                    @if(!empty($std))
                                         href="{{route('estudiante.show', $id)}}"
                                     @endif
                                     @if(!empty($admin))
                                         href="{{route('admin.index')}}"
                                     @endif>
-                                
+
                                     <p class="my-0 mx-2 nav-txt nav-index"> <i class="bi bi-person-fill"></i>
                                         @if(!empty($company))
                                             {{$company->fullName}}
                                         @endif
-                                        @if(!empty($student))
-                                            {{$student->fullName}}
+                                        @if(!empty($std))
+                                            {{$std->fullName}}
                                         @endif
                                         @if(!empty($admin))
                                             Administrador
