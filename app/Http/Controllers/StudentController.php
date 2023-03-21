@@ -58,7 +58,7 @@ class StudentController extends Controller
         $userStudent->email = $email.'@net.working.com';
         $userStudent->password = Str::random(13);
         $userStudent->rol = 'student';
-        
+
 
         if($userStudent->save()){
             $student = new student();
@@ -88,7 +88,7 @@ class StudentController extends Controller
                         if($studentInt->save()) {
                             session()->flash("status","Alumno registrado");
                         }
-                        else { 
+                        else {
                             session()->flash("status","Hubo un problema en el registro");
                         }
                     }
@@ -101,7 +101,7 @@ class StudentController extends Controller
                         if($studentExpo->save()) {
                             session()->flash("status","Alumno registrado");
                         }
-                        else { 
+                        else {
                             session()->flash("status","Hubo un problema en el registro");
                         }
                     }
@@ -187,7 +187,7 @@ class StudentController extends Controller
 
         $student->fullName = $request->adminEditStudentName;
         $student->linkedin = $request->adminEditStudentLinkedin;
-        
+
         if($request->adminEditBtnStudent != null) {
             //Nombre de archivo
             $fileName = time().'_'.uniqid();
@@ -208,7 +208,7 @@ class StudentController extends Controller
                 $studentInt->interests = $StudentInterest;
                 $studentInt->student = $student->id;
                 $studentInt->save();
-            }   
+            }
         }
 
         studentExpo::where('student',$id)->delete();
@@ -218,13 +218,13 @@ class StudentController extends Controller
                 $studentExpo->expo = $StudentExpo;
                 $studentExpo->student = $student->id;
                 $studentExpo->save();
-            }   
+            }
         }
 
         if($student->save()) {
             session()->flash("status","Alumno editado correctamente");
         }
-        else { 
+        else {
             session()->flash("status","Hubo un problema en la edición");
         }
 
@@ -238,7 +238,7 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
+    {
         // Borrar la relacion con los intereses
         if(studentInterests::where('student',$id)->delete()) {
             // Encontrar y borrar al Alumno

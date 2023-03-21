@@ -47,6 +47,24 @@
 
                             <div class="row mb-4">
                                 <div class="col-sm-5" style="align-self: end;">
+                                    <h5 class="mb-0"  style="align-self: top;">Correo</h5>
+                                </div>
+                                <div class="col-sm-7 text-secondary">
+                                    <input class="form-control col-11" type="text" name="regCompanyEmail" id="regCompanyEmail" value="{{$user->email}}" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-5" style="align-self: end;">
+                                    <h5 class="mb-0"  style="align-self: top;">Contraseña</h5>
+                                </div>
+                                <div class="col-sm-7 text-secondary">
+                                    <input class="form-control col-11" type="text" name="regCompanyPass" id="regCompanyPass" value="{{$user->password}}" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-5" style="align-self: end;">
                                     <h5 class="mb-0"  style="align-self: top;">Nombre de la Empresa</h5>
                                 </div>
                                 <div class="col-sm-7 text-secondary">
@@ -87,24 +105,6 @@
                                     </div>
                                     <span style="color:snow; opacity: 30%">Seleccione uno o más intereses</span>
 
-                                </div>
-                            </div>
-
-                            <div class="row mb-4">
-                                <div class="col-sm-5" style="align-self: end;">
-                                    <h5 class="mb-0"  style="align-self: top;">Correo</h5>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <input class="form-control col-11" type="text" name="regCompanyEmail" id="regCompanyEmail" value="{{$user->email}}" readonly>
-                                </div>
-                            </div>
-
-                            <div class="row mb-4">
-                                <div class="col-sm-5" style="align-self: end;">
-                                    <h5 class="mb-0"  style="align-self: top;">Contraseña</h5>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <input class="form-control col-11" type="text" name="regCompanyPass" id="regCompanyPass" value="{{$user->password}}" required>
                                 </div>
                             </div>
 

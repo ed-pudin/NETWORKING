@@ -66,7 +66,7 @@ class InterestsController extends Controller
     {
         $interest = interests::find($id);
 
-        if(studentInterests::where('interests',$id) != null || companyInterests::where('interests',$id) != null ) {
+        if(count(studentInterests::where('interests',$id)->get()) > 0 || count(companyInterests::where('interests',$id)->get()) > 0 ) {
             session()->flash("status","El interés pertenece a alguien y no puede ser eliminado");
         }else{
             if($interest->delete()){

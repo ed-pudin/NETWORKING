@@ -7,7 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InterestsController;
-
+use App\Http\Controllers\ExposController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,6 +73,14 @@ Route::group(['middleware' => 'isAdmin'], function () {
         'create' => 'adminInterests.create',
         'store' => 'adminInterests.store',
         'destroy' => 'adminInterests.destroy',
+    ]);
+
+    Route::resource('adminExpo', ExposController::class,[
+        'index' => 'adminExpo.index',
+        'show' => 'adminExpo.show',
+        'create' => 'adminExpo.create',
+        'store' => 'adminExpo.store',
+        'destroy' => 'adminExpo.destroy',
     ]);
 });
 

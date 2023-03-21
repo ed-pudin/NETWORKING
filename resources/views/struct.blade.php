@@ -76,7 +76,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('adminExpo.index')}}" class="nav-link">
                                     <p style="text-decoration: unset" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> EXPOS registradas </p>
                                 </a>
                             </li>

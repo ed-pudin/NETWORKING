@@ -41,7 +41,8 @@
                 <div class="col-md-8 col-sm-12 col-12 mx-auto mt-5 mt-md-0 p-md-5">
 
                     <div class="mb-4 d-flex justify-content-center">
-                        <img width="300" height="200" onclick="document.getElementById('regBtnStudentImg').click();" name="regStudentImg" id="regStudentImg" src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar"/>
+                        <img width="300" height="200" onclick="document.getElementById('regBtnStudentImg').click();" name="regStudentImg" id="regStudentImg"
+                        src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar" required/>
                     </div>
 
                     <div class="d-flex justify-content-center">
@@ -60,7 +61,7 @@
                                 <div class="col-sm-5">
                                     <h5 class="mb-0">Nombre del estudiante</h5>
                                 </div>
-                                <div class="col-sm-7 text-secondary"> <input class="form-control col-11" type="text" name="regStudentName" id="regStudentName"> </div>
+                                <div class="col-sm-7 text-secondary"> <input class="form-control col-11" type="text" name="regStudentName" id="regStudentName" required> </div>
                             </div>
 
                             <div class="row">
@@ -82,7 +83,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="form-floating" style="background-color: black;">
-                                        <select class="form-select" id="regStudentInterests" name="regStudentInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
+                                        <select class="form-select" id="regStudentInterests" name="regStudentInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%" required>
                                             @foreach ($allInterests as $interest)
                                                 <option value="{{$interest->id}}">{{$interest->name}}</option>
                                             @endforeach
@@ -99,12 +100,11 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="form-floating" style="background-color: black;">
-                                        <select class="form-select" id="regStudentExpos" name="regStudentExpos[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
+                                        <select class="form-select" id="regStudentExpos" name="regStudentExpos[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%" required>
                                         @foreach ($allExpos as $expo)
                                             <option value="{{$expo->id}}">{{$expo->year}}</option>
                                         @endforeach
                                         </select>
-                                        <label for="regStudentExpos">EXPO asistida</label>
                                     </div>
                                     <span style="color:snow; opacity: 30%">Seleccione una o más exposiciones</span>
                                 </div>
