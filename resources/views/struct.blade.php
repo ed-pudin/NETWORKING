@@ -40,39 +40,50 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    @php
+                    $id = session()->get('id');
+                    $user = new App\Models\User();
+                    $user = App\Models\User::where('id', '=', $id)->first();
+                        if($user != null){
+
+                            $rol = $user->rol;
+                            if($rol == 'company')
+                            {
+                                $company = new App\Models\company();
+                                $company = App\Models\company::where('user', '=', $user->id)->first();
+                            }
+                            if($rol == 'student')
+                            {
+                                $std = new App\Models\student();
+                                $std = App\Models\student::where('user', '=', $user->id)->first();
+                            }
+                            if($rol == 'admin')
+                            {
+                                $admin = new App\Models\user();
+                                $admin = App\Models\user::where('id', '=', $user->id)->first();
+                            }
+
+                        }
+
+                    @endphp
 
                     <ul class="nav navbar-nav navbar-left">
+                        @if(!empty($admin))
+                            <li class="nav-item">
+                                <a href="{{route('adminInterests.index')}}" class="nav-link">
+                                    <p style="text-decoration: unset" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INTERESES </p>
+                                </a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <p style="text-decoration: unset" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> EXPOS registradas </p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
 
                     <ul class="nav navbar-nav ms-auto me-2">
-
-                        @php
-                        $id = session()->get('id');
-                        $user = new App\Models\User();
-                        $user = App\Models\User::where('id', '=', $id)->first();
-                            if($user != null){
-
-                                $rol = $user->rol;
-                                if($rol == 'company')
-                                {
-                                    $company = new App\Models\company();
-                                    $company = App\Models\company::where('user', '=', $user->id)->first();
-                                }
-                                if($rol == 'student')
-                                {
-                                    $std = new App\Models\student();
-                                    $std = App\Models\student::where('user', '=', $user->id)->first();
-                                }
-                                if($rol == 'admin')
-                                {
-                                    $admin = new App\Models\user();
-                                    $admin = App\Models\user::where('id', '=', $user->id)->first();
-                                }
-
-                            }
-
-                        @endphp
 
                         <li class="nav-item">
                             <a class="nav-link"
@@ -91,6 +102,7 @@
                                 <p style="text-decoration: underline" class="my-0 mx-lg-5 mx-2 nav-txt nav-index"> INICIO </p>
                             </a>
                         </li>
+
 
                         @if (!session()->has('id'))
                             <li class="nav-item m-2">

@@ -1,40 +1,83 @@
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('struct')
+@section('Content')
 
-        <title>Intereses</title>
+<script type="text/javascript">
+    @if(session()->get('status') == "Interés registrado")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-        <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    });
+    @endif
+    @if(session()->get('status') == "Hubo un problema en el registro")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor:'#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
-        <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    });
+    @endif
+    @if(session()->get('status') == "Interés eliminado")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    });
+    @endif
+    @if(session()->get('status') == "Hubo un problema en la eliminación")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor:'#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    });
+    @endif
+    @if(session()->get('status') == "El interés pertenece a alguien y no puede ser eliminado")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-
-    </head>
+    });
+    @endif
+</script>
 
 <div class="background container-fluid min-vh-100">
     <div class="col-12 col-md-9 mx-auto">
-        <div class="row">
+        <div class="row pt-5">
             <h1 class="text-center"> Intereses </h1>
         </div>
         <form id="form" method="POST" enctype="multipart/form-data" action="{{route('adminInterests.store')}}">
             @csrf
             <div class="input-group mb-3">
-                <input name="interest" id="interest" type="text" class="form-control" placeholder="Recipient's username"/>
-                <button type="submit" class="btn-secondary">+</button>
+                <input name="interest" id="interest" type="text" class="form-control" placeholder="Nombre del interés" required/>
+                <button type="submit" class="btn-secondary">Añadir</button>
             </div>
         </form>
 
@@ -55,3 +98,4 @@
         </div>
     </div>
 </div>
+@endsection

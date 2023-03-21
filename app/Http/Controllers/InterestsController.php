@@ -39,7 +39,7 @@ class InterestsController extends Controller
     {
         //
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -55,17 +55,28 @@ class InterestsController extends Controller
         $interests->name =  $request->interest;
 
         if($interests->save()){
-            session()->flash("status","Intereses registrados");
+            session()->flash("status","Interés registrado");
         }else{
             session()->flash("status","Hubo un problema en el registro");
         }
-        return redirect()->back();
+        return redirect()->route('adminInterests.index');
     }
 
     public function destroy($id)
     {
         $interest = interests::find($id);
-        $interest->delete();
-        return redirect()->back();
+
+        if(studentInterests::where('interests',$id) != null || companyInterests::where('interests',$id) != null ) {
+            session()->flash("status","El interés pertenece a alguien y no puede ser eliminado");
+        }else{
+            if($interest->delete()){
+                session()->flash("status","Interés eliminado");
+            }else{
+                session()->flash("status","Hubo un problema en la eliminación");
+            }
+        }
+
+
+        return redirect()->route('adminInterests.index');
     }
 }
