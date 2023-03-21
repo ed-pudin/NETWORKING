@@ -1,5 +1,4 @@
 <div>
-    @if(count($interests) != 0)
     <h5 class="text-center mt-5">
         <i class="bi bi-caret-left-fill" id="backIcon" style="cursor:pointer; text-shadow:none; display:none" wire:click="initialAreas"></i>
             Áreas de interes
@@ -64,7 +63,4 @@
             </div>
         @endforeach
     </div>
-    @else
-    <h5 class="text-center mt-5">Sin áreas de interes</h5>
-    @endif
 </div>

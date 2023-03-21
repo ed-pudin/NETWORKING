@@ -133,9 +133,12 @@ class StudentController extends Controller
 
         //Mostrar intereses
         $interests = new studentInterests();
-        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.id')->where('student', '=', $student->id)->get();
+        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $student->id)->get();
 
-        return view('students.profile', compact('student', 'interests'));
+        //Mostrar expos
+        $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $student->id)->get();
+
+        return view('students.profile', compact('student', 'interests', 'allExpos'));
     }
 
     /**
