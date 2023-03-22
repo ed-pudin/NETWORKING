@@ -40,7 +40,7 @@
             @foreach ($companies as $company)
                 <div class="card col-12 col-md-4 studentsCards">
                     <div class="d-lg-flex">
-                        <div class="col" onclick="alert('cicl');" style="cursor:pointer">
+                        <div class="col" onclick="window.location.href = '{{route('verEmpresa', $company->id)}}';" style="cursor:pointer">
                             <div class="card-body">
                                 <h5 class="card-title student-fullname"> {{$company->fullName}}</h5>
                                 <div class="card-subtitle">

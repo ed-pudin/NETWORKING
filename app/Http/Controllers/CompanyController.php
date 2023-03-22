@@ -236,4 +236,17 @@ class CompanyController extends Controller
         }
 
     }
+    public function verEmpresa($id){
+
+        //Mostrar una empresa
+        $compy = new company();
+        $compy = company::where('id', '=', $id)->first();
+
+        //Mostrar intereses
+        $interests = new companyInterests();
+        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $compy->id)->get();
+
+
+        return view('students.companyProfile', compact('compy', 'interests'));
+    }
 }
