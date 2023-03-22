@@ -95,11 +95,9 @@ Route::group(['middleware' => 'isCompany'], function () {
         'show' => 'empresa.show',
     ]);
 
-    // Route::resource('empresaEstudiante', StudentController::class, [
-    //     2. Vista principal de un estudiante desde una empresa
-    //     'show' => 'empresaEstudiante.show',
-    // ]);
-
+    //3. Vista principal de un estudiante desde una empresa
+    Route::get('empresaVeEstudiante/{id}', [StudentController::class, 'verEstudiante'])
+    ->name('verEstudiante');
 });
 
 Route::group(['middleware' => 'isStudent'], function () {
@@ -111,14 +109,7 @@ Route::group(['middleware' => 'isStudent'], function () {
         'show' => 'estudiante.show',
     ]);
 
-    Route::resource('estudianteEmpresa', CompanyController::class, [
-        //2. Vista principal de un estudiante desde una empresa
-        'show' => 'empresa.show',
-    ]);
-
-
-    //2. Vista principal de un estudiante desde una empresa
-
+    //3. Vista principal una empresa desde un estudiante
     Route::get('estudianteVeEmpresa/{id}', [CompanyController::class, 'verEmpresa'])
         ->name('verEmpresa');
 });

@@ -22,7 +22,7 @@
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('#regStudentImg').attr('src', e.target.result).width(300).height(200);
+                $('#regStudentImg').attr('src', e.target.result).width(200).height(200);
             };
 
             reader.readAsDataURL(input.files[0]);
@@ -41,9 +41,10 @@
                 <div class="col-md-8 col-sm-12 col-12 mx-auto mt-5 mt-md-0 p-md-5">
 
                     <div class="mb-4 d-flex justify-content-center">
-                        <img width="300" height="200" onclick="document.getElementById('regBtnStudentImg').click();" name="regStudentImg" id="regStudentImg"
-                        src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar" required/>
+                        <img width="200" height="200" onclick="document.getElementById('regBtnStudentImg').click();" name="regStudentImg" id="regStudentImg"
+                        src="https://api.dicebear.com/5.x/pixel-art/svg?seed=lmad&backgroundColor=b6e3f4" alt="avatar" required style="object-fit: cover"/>
                     </div>
+                    <span class="d-flex justify-content-center mb-3" style="color:snow; opacity: 30%;">Inserte una imagen 200x200</span>
 
                     <div class="d-flex justify-content-center">
                         <div class="btn btn-primary btn-rounded" onclick="document.getElementById('regBtnStudentImg').click();">

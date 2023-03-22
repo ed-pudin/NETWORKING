@@ -257,4 +257,19 @@ class StudentController extends Controller
         }
 
     }
+    public function verEstudiante($id){
+        //Mostrar un alumno
+        $sdt = new student();
+        $sdt = student::where('id', '=', $id)->first();
+
+        //Mostrar intereses
+        $interests = new studentInterests();
+        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $sdt->id)->get();
+
+        //Mostrar expos
+        $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $sdt->id)->get();
+
+        return view('company.studentProfile', compact('sdt', 'interests', 'allExpos'));
+
+    }
 }

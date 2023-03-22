@@ -54,49 +54,6 @@
     </div>
 </div>
 
-<script>
-
-
-    Livewire.on('backFnc', function (filter, index){
-        $('#backIcon').show();
-        $("#checkIcon").show();
-        $('#configIcon').hide();
-    });
-
-    Livewire.on('editLinkedin', function (filter, index){
-        $('#notFormEditLinkedin').hide();
-        $("#formEditLinkedin").show();
-    });
-
-    Livewire.on('stopEditing', function (filter, index){
-        $('#notFormEditLinkedin').show();
-        $("#formEditLinkedin").hide();
-    });
-
-    Livewire.on('saveEditingSuccess', function (filter, index){
-        Swal.fire({
-        position: 'center',
-        icon: 'success',
-        iconColor: '#0de4fe',
-        title: `Editado exitoso`,
-        showConfirmButton: false,
-        timer: 1500
-        })
-    });
-
-    Livewire.on('saveEditingFail', function (filter, index){
-        Swal.fire({
-        position: 'center',
-        icon: 'error',
-        iconColor: '#a70202',
-        title: `Editado exitoso`,
-        showConfirmButton: false,
-        timer: 1500
-        })
-    });
-
-
-</script>
 
 @endsection
 

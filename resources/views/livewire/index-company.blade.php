@@ -39,9 +39,11 @@
                 <div class="card col-12 col-md-4 studentsCards">
                     <div class="d-lg-flex">
                         <div class="" style="background-color: #141424" >
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAJZZoEhCvLquyDxHONSY6Qbzp2yrXQs_fGFyUF-K3oKpfKOdAMeRMLl-OQestasHpspI&usqp=CAU" class="img-fluid p-2 rounded-circle" style="height:200px; width:200px;cursor:pointer" onclick="alert('cicl');">
+                            <div class="col-12 text-center">
+                                <img style="object-fit: cover; height:180px; width:180px; border-radius:50%;" @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif alt="avatar"/>
+                            </div>
                         </div>
-                        <div class="col" onclick="alert('cicl');" style="cursor:pointer">
+                        <div class="col"onclick="window.location.href = '{{route('verEstudiante', $student->id)}}';" style="cursor:pointer">
                             <div class="card-body">
                                 <h5 class="card-title student-fullname"> {{$student->fullName}}</h5>
                                 <div class="card-subtitle">
