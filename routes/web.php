@@ -98,6 +98,7 @@ Route::group(['middleware' => 'isCompany'], function () {
     //3. Vista principal de un estudiante desde una empresa
     Route::get('empresaVeEstudiante/{id}', [StudentController::class, 'verEstudiante'])
     ->name('verEstudiante');
+
 });
 
 Route::group(['middleware' => 'isStudent'], function () {
@@ -112,4 +113,8 @@ Route::group(['middleware' => 'isStudent'], function () {
     //3. Vista principal una empresa desde un estudiante
     Route::get('estudianteVeEmpresa/{id}', [CompanyController::class, 'verEmpresa'])
         ->name('verEmpresa');
+
+    //4. Cambiar foto de perfil
+    Route::put('editarImagen/{id}', [StudentController::class, 'editarImagen'])
+    ->name('editarImagen');
 });

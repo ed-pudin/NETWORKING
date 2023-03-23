@@ -1,6 +1,58 @@
 @extends('struct')
 @section('Content')
 
+
+<script type="text/javascript">
+    @if(session()->get('status') == "Imagen cambiada")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        iconColor: '#0de4fe',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Hubo un problema en la edición")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor: '#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+
+    @php
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    @endphp
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#regStudentImg').attr('src', e.target.result).width(200).height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
 <div class="background container-fluid min-vh-100">
     <div class="netw-inicio" style="">
 
@@ -36,6 +88,13 @@
         $("#formEditLinkedin").show();
     });
 
+    Livewire.on('editImage', function (filter, index){
+        $('#fEditImage').hide();
+        $('#originalImg').hide();
+        $('#formEdit').show();
+        $('#tempImg').show();
+    });
+
     Livewire.on('stopEditing', function (filter, index){
         $('#notFormEditLinkedin').show();
         $("#formEditLinkedin").hide();
@@ -63,6 +122,9 @@
         })
     });
 
+    function submitFormImg() {
+        document.getElementById("editarImagenEstudiante").submit();
+    }
 
 </script>
 

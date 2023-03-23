@@ -35,4 +35,8 @@ class ProfileStudent extends Component
     public function stopEditing(){
         $this->emit('stopEditing');
     }
+    public function editImage(){
+        $this->emit('editImage');
+    }
+
 }

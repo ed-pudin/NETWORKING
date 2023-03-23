@@ -272,4 +272,32 @@ class StudentController extends Controller
         return view('company.studentProfile', compact('sdt', 'interests', 'allExpos'));
 
     }
+
+    public function editarImagen(Request $request, $id){
+
+        $student = student::find($id);
+
+
+        if($request->regBtnStudentImg != null) {
+            //Nombre de archivo
+            $fileName = time().'_'.uniqid();
+            //Guardar archivo
+
+            Storage::disk('public')->delete('/'.$student->image);
+
+            Storage::disk('public')->put($fileName, file_get_contents($request->file('regBtnStudentImg')));
+        } else {
+            $fileName = $student->image;
+        }
+        $student->image = $fileName;
+
+        if($student->save()) {
+            session()->flash("status","Imagen cambiada");
+        }
+        else {
+            session()->flash("status","Hubo un problema en la edición");
+        }
+        return redirect()->back();
+
+    }
 }
