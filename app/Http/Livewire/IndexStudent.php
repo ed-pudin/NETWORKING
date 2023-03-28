@@ -8,6 +8,8 @@ use App\Models\company;
 
 class IndexStudent extends Component
 {
+    protected $listeners = ['deleteFilter' => 'delete'];
+
     public $allInterests;
     public $companies;
     public $searchTxt = "";
@@ -41,6 +43,11 @@ class IndexStudent extends Component
         $this->companies = $companyTemp;
 
         $this->dispatchBrowserEvent('contentChanged');
+    }
+
+    public function delete(){
+        $this->searchTxt = "";
+        $this->search();
     }
 
 }

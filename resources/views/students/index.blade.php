@@ -55,13 +55,13 @@
         $(".all-areas button#"+index).css('display', 'none');
     });
 
-
-
     function show(index){
 
         $("#selected-area button#"+index).remove();
 
         $(".all-areas button#"+index).show();
+
+        Livewire.emit('deleteFilter');
     }
 </script>
 
