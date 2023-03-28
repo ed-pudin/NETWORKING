@@ -9,6 +9,8 @@ use App\Models\studentInterests;
 
 class IndexCompany extends Component
 {
+    protected $listeners = ['deleteFilter' => 'delete'];
+
     public $students;
     public $allInterests;
     public $searchTxt = "";
@@ -41,6 +43,11 @@ class IndexCompany extends Component
         $this->students = $studentsTemp;
 
         $this->dispatchBrowserEvent('contentChanged');
+    }
+
+    public function delete(){
+        $this->searchTxt = "";
+        $this->search();
     }
 
 }

@@ -64,6 +64,8 @@
 
         $(".all-areas button#"+index).show();
 
+        Livewire.emit('deleteFilter');
+
     }
 </script>
 
