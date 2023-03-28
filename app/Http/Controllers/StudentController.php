@@ -215,8 +215,8 @@ class StudentController extends Controller
         }
 
         studentExpo::where('student',$id)->delete();
-        if($request->adminEditStudentExpos != null) {
-            foreach($request->adminEditStudentExpos as $StudentExpo){
+        if($request->regStudentExpos != null) {
+            foreach($request->regStudentExpos as $StudentExpo){
                 $studentExpo = new studentExpo();
                 $studentExpo->expo = $StudentExpo;
                 $studentExpo->student = $student->id;
@@ -243,18 +243,55 @@ class StudentController extends Controller
     public function destroy($id)
     {
         // Borrar la relacion con los intereses
-        if(studentInterests::where('student',$id)->delete()) {
-            // Encontrar y borrar al Alumno
-            $student = student::find($id);
+        $interests = new studentInterests();
+        $interests = studentInterests::where('student', '=', $id)->get();
 
-            if($student->delete()) {
-                session()->flash("deleteStudent","Alumno eliminado correctamente");
-            } else {
-                session()->flash("deleteStudent","Ha ocurrido un error");
+        foreach($interests as $interest)
+        {
+            if(!($interest->delete()))
+            {
+                session()->flash("status","Hubo un problema en la eliminación");
+                return redirect()->back();
             }
+        }
+        //Borrar expos
+        $expos = studentExpo::where('student', '=', $id)->get();
 
+        foreach($expos as $expo)
+        {
+            if(!($expo->delete()))
+            {
+                session()->flash("status","Hubo un problema en la eliminación");
+                return redirect()->back();
+            }
+        }
+        // Encontrar y borrar al Alumno
+        $student = student::where('id', '=', $id)->first();
+
+        $user = new user();
+        $user = User::where('id', '=', $student->user)->first();
+
+        if($student->delete()){
+            if($user->delete()){
+
+                session()->flash("status","Se eliminó correctamente");
+                return redirect()->back();
+            }else{
+                session()->flash("status","Hubo un problema en la eliminación");
+                return redirect()->back();
+            }
+        }else{
+            session()->flash("status","Hubo un problema en la eliminación");
             return redirect()->back();
         }
+
+
+        if($student->delete()) {
+            session()->flash("deleteStudent","Alumno eliminado correctamente");
+        } else {
+            session()->flash("deleteStudent","Ha ocurrido un error");
+        }
+        return redirect()->back();
 
     }
     public function verEstudiante($id){

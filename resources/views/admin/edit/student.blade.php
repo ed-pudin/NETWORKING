@@ -42,7 +42,7 @@
                 <div class="col-md-8 col-sm-12 col-12 mx-auto mt-5 mt-md-0 p-md-5">
 
                     <div class="mb-4 d-flex justify-content-center">
-                        <img width="300" height="200" onclick="document.getElementById('adminEditBtnStudent').click();" name="adminEditStudentImg" id="adminEditStudentImg"
+                        <img width="200" height="200" onclick="document.getElementById('adminEditBtnStudent').click();" name="adminEditStudentImg" style="object-fit: cover" id="adminEditStudentImg"
                             @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4"
                             @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif
                             alt="avatar"
@@ -146,5 +146,49 @@
 
 </div>
 
+<script>
+    $("#regStudentExpos").mousedown(function(e) {
+        selections = $(this).val();
+
+      }).click(function() {
+
+        if (selections == null) {
+          var selected = -1;
+          selections = [];
+        } else
+          var selected = selections.indexOf($.isArray($(this).val()) ? $(this).val()[$(this).val().length - 1] : $(this).val());
+
+        if (selected >= 0)
+          selections.splice(selected, 1);
+        else
+          selections.push($(this).val()[0]);
+
+        $('#regStudentExpos option').each(function() {
+          $(this).prop('selected', selections.indexOf($(this).val()) >= 0);
+        });
+      });
+
+      $("#adminEditStudentInterests").mousedown(function(e) {
+        selections = $(this).val();
+
+      }).click(function() {
+
+        if (selections == null) {
+          var selected = -1;
+          selections = [];
+        } else
+          var selected = selections.indexOf($.isArray($(this).val()) ? $(this).val()[$(this).val().length - 1] : $(this).val());
+
+        if (selected >= 0)
+          selections.splice(selected, 1);
+        else
+          selections.push($(this).val()[0]);
+
+        $('#adminEditStudentInterests option').each(function() {
+          $(this).prop('selected', selections.indexOf($(this).val()) >= 0);
+        });
+      });
+
+  </script>
 
 @endsection
