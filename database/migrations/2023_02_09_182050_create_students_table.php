@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullName', 50);
             $table->string('linkedin', 100);
-            $table->string('image', 500);
+            $table->string('image', 500)->nullable()->change();
             $table->unsignedBigInteger('user');
             $table->foreign('user')->references('id')->on('users');
             $table->timestamps();

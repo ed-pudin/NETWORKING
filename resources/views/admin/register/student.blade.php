@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="form-floating" style="background-color: black;">
-                                        <select class="form-select" id="regStudentInterests" name="regStudentInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%" required>
+                                        <select class="form-select" id="regStudentInterests" name="regStudentInterests[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
                                             @foreach ($allInterests as $interest)
                                                 <option value="{{$interest->id}}">{{$interest->name}}</option>
                                             @endforeach

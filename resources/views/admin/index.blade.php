@@ -245,7 +245,11 @@
                                     @foreach ($students as $student)
 
                                         <tr>
-                                            <td> <img style="object-fit: cover"  @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif alt="avatar"/> </td>
+                                            <td> <img style="object-fit: cover"
+                                                @if(is_null($student->image))
+                                                src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4"
+                                                @else src="{{asset('storage/studentImages/'.$student->image)}}"
+                                                @endif alt="avatar"/> </td>
                                             <td> {{$student->fullName}} </td>
                                             <td> <a target="_blank" href="{{$student->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$student->fullName}} </i></a> </td>
                                             <td>

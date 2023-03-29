@@ -49,7 +49,7 @@ class LoginController extends Controller
             }
         }
         else{
-            session()->flash("status","Contraseña o clave incorrecta");
+            session()->flash("status","Credenciales inválidas");
             return redirect()->route('inicioSesion.index');
         }
     }

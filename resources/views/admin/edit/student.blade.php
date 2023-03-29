@@ -72,21 +72,21 @@
                                 <div class="col-sm-5" style="align-self: center; text-align: -webkit-center;">
                                     <h5 class="mb-0">Contraseña</h5>
                                 </div>
-                                <div class="col-sm-7 text-secondary"> <input value="{{$user->password}}" class="form-control col-11" type="text" name="adminEditStudentPassword" id="adminEditStudentPassword"> </div>
+                                <div class="col-sm-7 text-secondary"> <input value="{{$user->password}}" class="form-control col-11" type="text" name="adminEditStudentPassword" id="adminEditStudentPassword" required> </div>
                             </div>
 
                             <div class="row mb-4">
                                 <div class="col-sm-5">
                                     <h5 class="mb-0">Nombre del estudiante</h5>
                                 </div>
-                                <div class="col-sm-7 text-secondary"> <input value="{{$student->fullName}}" class="form-control col-11" type="text" name="adminEditStudentName" id="adminEditStudentName"> </div>
+                                <div class="col-sm-7 text-secondary"> <input value="{{$student->fullName}}" class="form-control col-11" type="text" name="adminEditStudentName" id="adminEditStudentName"required> </div>
                             </div>
 
                             <div class="row mb-4">
                                 <div class="col-sm-5" style="align-self: center; text-align: -webkit-center;">
                                     <h5 class="mb-0"  style="align-self: top;">Linkedin</h5>
                                 </div>
-                                <div class="col-sm-7 text-secondary"> <input value="{{$student->linkedin}}" class="form-control col-11" type="text" name="adminEditStudentLinkedin" id="adminEditStudentLinkedin"> </div>
+                                <div class="col-sm-7 text-secondary"> <input value="{{$student->linkedin}}" class="form-control col-11" type="text" name="adminEditStudentLinkedin" id="adminEditStudentLinkedin" required> </div>
                             </div>
 
                             <div class="row">
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="form-floating" style="background-color: black;">
-                                        <select class="form-select" id="regStudentExpos" name="regStudentExpos[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%">
+                                        <select class="form-select" id="regStudentExpos" name="regStudentExpos[]" multiple="multiple" size="5" style="overflow-y: auto; height:100%" required>
                                         @foreach ($allExpos as $expo)
                                             <option value="{{$expo->id}}"
                                                 @foreach($studentExpos as $sExpo)

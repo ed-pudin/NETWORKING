@@ -1,7 +1,7 @@
 @extends('struct')
 @section('Content')
 <script>
-    if(`{{ session()->get('status') }}` == "Contraseña o clave incorrecta") {
+    if(`{{ session()->get('status') }}` == "Credenciales inválidas") {
         document.addEventListener("DOMContentLoaded", function(){
             Swal.fire({
                 position: 'center',

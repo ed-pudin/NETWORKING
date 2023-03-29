@@ -92,21 +92,21 @@ class StudentController extends Controller
                             session()->flash("status","Hubo un problema en el registro");
                         }
                     }
-
-                    foreach($request->regStudentExpos as $regStudentExpo){
-                        $studentExpo = new studentExpo();
-                        $studentExpo->expo = $regStudentExpo;
-                        $studentExpo->student = $student->id;
-
-                        if($studentExpo->save()) {
-                            session()->flash("status","Alumno registrado");
-                        }
-                        else {
-                            session()->flash("status","Hubo un problema en el registro");
-                        }
-                    }
                 } else {
                     session()->flash("status","Alumno registrado");
+                }
+
+                foreach($request->regStudentExpos as $regStudentExpo){
+                    $studentExpo = new studentExpo();
+                    $studentExpo->expo = $regStudentExpo;
+                    $studentExpo->student = $student->id;
+
+                    if($studentExpo->save()) {
+                        session()->flash("status","Alumno registrado");
+                    }
+                    else {
+                        session()->flash("status","Hubo un problema en el registro");
+                    }
                 }
 
             } else {
@@ -272,13 +272,10 @@ class StudentController extends Controller
         $user = User::where('id', '=', $student->user)->first();
 
         if($student->delete()){
-            if($user->delete()){
-
-                session()->flash("status","Se eliminó correctamente");
-                return redirect()->back();
-            }else{
-                session()->flash("status","Hubo un problema en la eliminación");
-                return redirect()->back();
+            if($user->delete()) {
+                session()->flash("deleteStudent","Alumno eliminado correctamente");
+            } else {
+                session()->flash("deleteStudent","Ha ocurrido un error");
             }
         }else{
             session()->flash("status","Hubo un problema en la eliminación");
@@ -286,11 +283,6 @@ class StudentController extends Controller
         }
 
 
-        if($student->delete()) {
-            session()->flash("deleteStudent","Alumno eliminado correctamente");
-        } else {
-            session()->flash("deleteStudent","Ha ocurrido un error");
-        }
         return redirect()->back();
 
     }

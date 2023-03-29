@@ -222,10 +222,9 @@ class CompanyController extends Controller
         $user = User::where('id', '=', $company->user)->first();
 
         if($company->delete()){
-            if($user->delete()){
 
+            if($user->delete()){
                 session()->flash("status","Se eliminó correctamente");
-                return redirect()->route('admin.index');
             }else{
                 session()->flash("status","Hubo un problema en la eliminación");
                 return redirect()->route('admin.index');
@@ -234,6 +233,8 @@ class CompanyController extends Controller
             session()->flash("status","Hubo un problema en la eliminación");
             return redirect()->route('admin.index');
         }
+
+        return redirect()->route('admin.index');
 
     }
     public function verEmpresa($id){
