@@ -44,7 +44,15 @@
                             <div class="card-body">
                                 <h5 class="card-title student-fullname"> {{$company->fullName}}</h5>
                                 <div class="card-subtitle">
-                                <div class="text-white">Linkedin: <a href="{{$company->linkedin}}">{{$company->linkedin}}</a></div>
+                                <div class="text-white">
+                                    @if($company->linkedin != null)
+                                    Linkedin: <a href="{{$company->linkedin}}">
+                                    {{$company->fullName}}
+                                    </a>
+                                    @else
+                                        <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                                    @endif
+                                </div>
                                 </div>
                                 <div class="all-areas mt-1">
                                     @php

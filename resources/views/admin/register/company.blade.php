@@ -61,7 +61,7 @@
                                     </svg>  --}}
                                 </div>
                                 <div class="col-sm-7 text-secondary">
-                                    <input class="form-control col-11" type="text" name="regCompanyLinkedin" id="regCompanyLinkedin" required>
+                                    <input class="form-control col-11" type="text" name="regCompanyLinkedin" id="regCompanyLinkedin">
                                     <span style="color:snow; opacity: 30%">Inserte el link</span>
                                 </div>
                             </div>

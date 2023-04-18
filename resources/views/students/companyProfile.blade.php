@@ -11,7 +11,11 @@
 
             <div class="text-white text-center">Linkedin: <br>
                 <div id="notFormEditLinkedin">
+                    @if($compy->linkedin != null)
                     <a target="_blank" href="{{$compy->linkedin}}"style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$compy->fullName}}</i></a>
+                    @else
+                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                    @endif
                 </div>
             </div>
 

@@ -175,7 +175,15 @@
                                     @foreach ($companies as $cmpy)
                                         <tr>
                                             <td> {{$cmpy->fullName}} </td>
-                                            <td> <a target="_blank" href="{{$cmpy->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;">  {{$cmpy->fullName}} </i></a> </td>
+                                            <td>
+                                                @if($cmpy->linkedin != null)
+                                                <a target="_blank" href="{{$cmpy->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"></i>
+                                                {{$cmpy->fullName}}
+                                                </a>
+                                                @else
+                                                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                                                @endif
+                                            </td>
                                             <td>
                                                 @php
                                                     $user = new App\Models\User;
@@ -258,7 +266,7 @@
                                                     {{$student->fullName}}
                                                     </a>
                                                 @else
-                                                    No se ha registrado linkedin
+                                                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
                                                 @endif </td>
                                             <td>
                                                 @php
