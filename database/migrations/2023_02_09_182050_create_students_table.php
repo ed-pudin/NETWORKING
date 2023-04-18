@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('fullName', 50);
-            $table->string('linkedin', 100);
+            $table->string('linkedin', 100)->nullable()->change();
             $table->string('image', 500)->nullable()->change();
             $table->unsignedBigInteger('user');
             $table->foreign('user')->references('id')->on('users');

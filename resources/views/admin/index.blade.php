@@ -251,7 +251,15 @@
                                                 @else src="{{asset('storage/studentImages/'.$student->image)}}"
                                                 @endif alt="avatar"/> </td>
                                             <td> {{$student->fullName}} </td>
-                                            <td> <a target="_blank" href="{{$student->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$student->fullName}} </i></a> </td>
+                                            <td>
+
+                                                @if($student->linkedin != null)
+                                                    <a target="_blank" href="{{$student->linkedin}}" style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"></i>
+                                                    {{$student->fullName}}
+                                                    </a>
+                                                @else
+                                                    No se ha registrado linkedin
+                                                @endif </td>
                                             <td>
                                                 @php
                                                     $user = new App\Models\User;
