@@ -47,7 +47,8 @@ class IndexCompany extends Component
 
     public function delete(){
         $this->searchTxt = "";
-        $this->search();
+        $this->students = student::all();
+
     }
 
 }
