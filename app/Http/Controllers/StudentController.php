@@ -335,40 +335,51 @@ class StudentController extends Controller
         //Verificar que el estudiante no ha sido registrado previamente
 
         $studentTmp = student::where('fullName', '=',$request->regStudentName)->first();
-        $userStudentTmp = User::where('id', '=', $studentTmp->user)->first();
 
         if($studentTmp != null) //Hay una persona con el mismo nombre
         {
+            $userStudentTmp = User::where('id', '=', $studentTmp->user)->first();
+
             //Buscar el id del a;o de la expo
             $expoStudent = expo::where('year', '=', $request->regStudentExpos)->first();
-            //Preguntar si existe el resgistro de alumno expo
-            $studentExpoTmp = studentExpo::where('expo', '=', $expoStudent->id)->where('student', '=', $studentTmp->id)->first();
 
-            if($studentExpoTmp != null){
-                //Se intenta registrar el mismo alumno en la misma expo
-                return response()->json([
-                'status' => 'Alumno previamente registrado',
-                'correo' => $userStudentTmp->email,
-                'contraseña' => $userStudentTmp->password
-                ]);
-            }else{
-                //Mismo alumno dif expo
-                $studentExpo = new studentExpo();
-                $studentExpo->expo = $expoStudent->id; //2018
-                $studentExpo->student = $studentTmp->id;
+            if($expoStudent != null){
+                //El a;o que se puso si esta en la bd de networking
 
-                if($studentExpo->save()) {
+                //Preguntar si existe el resgistro de alumno expo
+                $studentExpoTmp = studentExpo::where('expo', '=', $expoStudent->id)->where('student', '=', $studentTmp->id)->first();
+
+                if($studentExpoTmp != null){
+                    //Se intenta registrar el mismo alumno en la misma expo
                     return response()->json([
-                    'status' => 'Expo añadida al alumno',
+                    'status' => 'Alumno previamente registrado',
                     'correo' => $userStudentTmp->email,
                     'contraseña' => $userStudentTmp->password
                     ]);
-                }
-                else {
-                    return response()->json(['status' => 'Hubo un problema en el registro']);
+                }else{
+                    //Mismo alumno dif expo
+                    $studentExpo = new studentExpo();
+                    $studentExpo->expo = $expoStudent->id; //2018
+                    $studentExpo->student = $studentTmp->id;
+
+                    if($studentExpo->save()) {
+                        return response()->json([
+                        'status' => 'Expo añadida al alumno',
+                        'correo' => $userStudentTmp->email,
+                        'contraseña' => $userStudentTmp->password
+                        ]);
+                    }
+                    else {
+                        return response()->json(['status' => 'Hubo un problema en el registro']);
+                    }
+
                 }
 
+            }else{
+                //Puso un a;o que no esta en la bd
+                return response()->json(['status' => 'Hubo un problema en el registro.', 'msg' => 'El año no se ha registrado previamente, por favor contáctese con soporte.']);
             }
+
 
         }else{
             //Email
