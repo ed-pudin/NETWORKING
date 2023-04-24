@@ -390,23 +390,23 @@ class StudentController extends Controller
             $userStudent->password = Str::random(13);
             $userStudent->rol = 'student';
 
-            //Se guarda usuario
-            if($userStudent->save()){
+            //Buscar el id del a;o de la expo
+            $expoStudent = expo::where('year', '=', $request->regStudentExpos)->first();
 
-                //Se crea un estudiante
-                $student = new student();
+            if($expoStudent != null)
+            {
+                //Se guarda usuario
+                if($userStudent->save()){
 
-                $student->fullName = $request->regStudentName;
-                $student->user = $userStudent->id;
-                $student->image = null;
+                    //Se crea un estudiante
+                    $student = new student();
 
-                //Buscar el id del a;o de la expo
-                $expoStudent = expo::where('year', '=', $request->regStudentExpos)->first();
+                    $student->fullName = $request->regStudentName;
+                    $student->user = $userStudent->id;
+                    $student->image = null;
 
-                if($expoStudent != null){
                     //Se guarda estudiante
                     if($student->save()){
-
 
                         $studentExpo = new studentExpo();
                         $studentExpo->expo = $expoStudent->id; //2018
@@ -426,15 +426,15 @@ class StudentController extends Controller
                     } else {
                         return response()->json(['status' => 'Hubo un problema en el registro']);
                     }
-                }else{
-                    //Puso un a;o que no esta en la bd
-                return response()->json(['status' => 'Hubo un problema en el registro.', 'msg' => 'El año no se ha registrado previamente, por favor contáctese con soporte.']);
 
+                } else {
+                    return response()->json(['status' => 'Hubo un problema en el registro']);
                 }
-
-            } else {
-                return response()->json(['status' => 'Hubo un problema en el registro']);
+            }else{
+                //Puso un a;o que no esta en la bd
+                return response()->json(['status' => 'Hubo un problema en el registro.', 'msg' => 'El año no se ha registrado previamente, por favor contáctese con soporte.']);
             }
+
         }
 
 
