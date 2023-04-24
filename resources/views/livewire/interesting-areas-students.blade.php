@@ -1,7 +1,7 @@
 <div>
     <h5 class="text-center mt-5">
         <i class="bi bi-caret-left-fill" id="backIcon" style="cursor:pointer; text-shadow:none; display:none" wire:click="initialAreas"></i>
-            Áreas de interes
+            Áreas de interés
         <i class="bi bi-gear-fill" id="configIcon" style="cursor:pointer; text-shadow:none" wire:click="configAreas"></i>
     </h5>
     <div class="d-flex flex-wrap justify-content-center">

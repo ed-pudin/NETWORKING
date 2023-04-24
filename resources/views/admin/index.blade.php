@@ -17,7 +17,7 @@
     });
     @endif
 
-    @if(session()->get('status') == "Alumno registrado")
+    @if(session()->get('status') == "Estudiante registrado")
     document.addEventListener("DOMContentLoaded", function(){
         Swal.fire({
         position: 'center',
@@ -101,7 +101,7 @@
     });
     @endif
 
-    @if(session()->get('status') == "Alumno editado correctamente")
+    @if(session()->get('status') == "Estudiante editado correctamente")
     document.addEventListener("DOMContentLoaded", function(){
         Swal.fire({
         position: 'center',
@@ -149,7 +149,7 @@
                         <button onclick="window.scrollTo(0, 0);" style="color:#000;" class="btn-secondary active p-2" id="admin-index-companies" data-bs-toggle="tab" data-bs-target="#all-companies" type="button" role="tab" aria-controls="all-companies" aria-selected="true">Empresas</button>
                     </li>
                     <li class="nav-item mx-auto" role="admin-index">
-                        <button onclick="window.scrollTo(0, 0);" style="color:#000;" class=" btn-secondary p-2" id="all-students-tab" data-bs-toggle="tab" data-bs-target="#all-students" type="button" role="tab" aria-controls="all-students" aria-selected="false">Alumnos</button>
+                        <button onclick="window.scrollTo(0, 0);" style="color:#000;" class=" btn-secondary p-2" id="all-students-tab" data-bs-toggle="tab" data-bs-target="#all-students" type="button" role="tab" aria-controls="all-students" aria-selected="false">Estudiante</button>
                     </li>
                 </ul>
             </div>
@@ -162,7 +162,7 @@
                                 <thead>
                                     <tr>
                                         <th>Empresa</th>
-                                        <th>Linkedin</th>
+                                        <th>LinkedIn</th>
                                         <th>Correo</th>
                                         <th>Contraseña</th>
                                         <th>Intereses</th>
@@ -181,7 +181,7 @@
                                                 {{$cmpy->fullName}}
                                                 </a>
                                                 @else
-                                                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                                                    <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
                                                 @endif
                                             </td>
                                             <td>
@@ -239,8 +239,8 @@
                                 <thead>
                                     <tr>
                                         <th>Imagen</th>
-                                        <th>Alumno</th>
-                                        <th>Linkedin</th>
+                                        <th>Estudiante</th>
+                                        <th>LinkedIn</th>
                                         <th>Correo</th>
                                         <th>Contraseña</th>
                                         <th>Intereses</th>
@@ -266,7 +266,7 @@
                                                     {{$student->fullName}}
                                                     </a>
                                                 @else
-                                                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                                                    <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
                                                 @endif </td>
                                             <td>
                                                 @php
@@ -320,7 +320,7 @@
 
                                     @endforeach
                                     <tr>
-                                        <td colspan="12"> <a href="{{route('adminEstudiante.create')}}" > <i class="bi bi-plus-circle"> Agregar Alumno </i></a></td>
+                                        <td colspan="12"> <a href="{{route('adminEstudiante.create')}}" > <i class="bi bi-plus-circle"> Agregar Estudiante </i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -336,7 +336,7 @@
                                     <tr>
                                         <th>Imagen</th>
                                         <th>Egresado</th>
-                                        <th>Linkedin</th>
+                                        <th>LinkedIn</th>
                                         <th>Intereses</th>
                                         <th>Editar</th>
                                         <th>Borrar</th>

@@ -86,14 +86,14 @@ class StudentController extends Controller
                         $studentInt->student = $student->id;
 
                         if($studentInt->save()) {
-                            session()->flash("status","Alumno registrado");
+                            session()->flash("status","Estudiante registrado");
                         }
                         else {
                             session()->flash("status","Hubo un problema en el registro");
                         }
                     }
                 } else {
-                    session()->flash("status","Alumno registrado");
+                    session()->flash("status","Estudiante registrado");
                 }
 
                 foreach($request->regStudentExpos as $regStudentExpo){
@@ -102,7 +102,7 @@ class StudentController extends Controller
                     $studentExpo->student = $student->id;
 
                     if($studentExpo->save()) {
-                        session()->flash("status","Alumno registrado");
+                        session()->flash("status","Estudiante registrado");
                     }
                     else {
                         session()->flash("status","Hubo un problema en el registro");
@@ -127,7 +127,7 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //Mostrar un alumno
+        //Mostrar un estudiante
         $student = new student();
         $student = student::where('user', '=', $id)->first();
 
@@ -225,7 +225,7 @@ class StudentController extends Controller
         }
 
         if($student->save()) {
-            session()->flash("status","Alumno editado correctamente");
+            session()->flash("status","Estudiante editado correctamente");
         }
         else {
             session()->flash("status","Hubo un problema en la edición");
@@ -265,7 +265,7 @@ class StudentController extends Controller
                 return redirect()->back();
             }
         }
-        // Encontrar y borrar al Alumno
+        // Encontrar y borrar al Estudiante
         $student = student::where('id', '=', $id)->first();
 
         $user = new user();
@@ -273,7 +273,7 @@ class StudentController extends Controller
 
         if($student->delete()){
             if($user->delete()) {
-                session()->flash("deleteStudent","Alumno eliminado correctamente");
+                session()->flash("deleteStudent","Estudiante eliminado correctamente");
             } else {
                 session()->flash("deleteStudent","Ha ocurrido un error");
             }
@@ -287,7 +287,7 @@ class StudentController extends Controller
 
     }
     public function verEstudiante($id){
-        //Mostrar un alumno
+        //Mostrar un estudiante
         $sdt = new student();
         $sdt = student::where('id', '=', $id)->first();
 
@@ -412,7 +412,7 @@ class StudentController extends Controller
 
                     if($studentExpo->save()) {
                         return response()->json([
-                            'status' => 'Alumno registrado',
+                            'status' => 'Estudiante registrado',
                             'correo' => $userStudent->email,
                             'contraseña' => $userStudent->password
                         ]);

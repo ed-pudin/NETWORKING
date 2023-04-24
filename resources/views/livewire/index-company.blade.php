@@ -49,11 +49,11 @@
                                 <div class="card-subtitle">
                                 <div class="text-white">
                                     @if($student->linkedin != null)
-                                    Linkedin: <a href="{{$student->linkedin}}">
+                                    LinkedIn: <a href="{{$student->linkedin}}">
                                     {{$student->fullName}}
                                     </a>
                                     @else
-                                        <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                                        <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
                                     @endif
                                 </div>
                                 </div>
