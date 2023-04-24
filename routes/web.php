@@ -37,7 +37,7 @@ Route::resource('inicioSesion', LoginController::class, [
 Route::group(['middleware' => 'isAdmin'], function () {
 
     Route::resource('admin', AdminController::class, [
-        //1. Vista principal de administrador (tab de alumnos y empresas)
+        //1. Vista principal de administrador (tab de estudiantes y empresas)
         'index' => 'admin.index',
     ]);
 
@@ -55,7 +55,7 @@ Route::group(['middleware' => 'isAdmin'], function () {
     ]);
 
     Route::resource('adminEstudiante', StudentController::class, [
-        //1. Vista principal de registro alumno
+        //1. Vista principal de registro estudiantes
         'create'    => 'adminEstudiante.create',
         //2. Guardar
         'store'     => 'adminEstudiante.store',

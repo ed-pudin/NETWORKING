@@ -84,7 +84,7 @@
 
                             <div class="row mb-4">
                                 <div class="col-sm-5" style="align-self: center; text-align: -webkit-center;">
-                                    <h5 class="mb-0"  style="align-self: top;">Linkedin</h5>
+                                    <h5 class="mb-0"  style="align-self: top;">LinkedIn</h5>
                                 </div>
                                 <div class="col-sm-7 text-secondary"> <input value="{{$student->linkedin}}" class="form-control col-11" type="text" name="adminEditStudentLinkedin" id="adminEditStudentLinkedin"> </div>
                             </div>

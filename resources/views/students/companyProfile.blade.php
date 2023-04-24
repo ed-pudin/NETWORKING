@@ -9,12 +9,12 @@
 
             </h1>
 
-            <div class="text-white text-center">Linkedin: <br>
+            <div class="text-white text-center">LinkedIn: <br>
                 <div id="notFormEditLinkedin">
                     @if($compy->linkedin != null)
                     <a target="_blank" href="{{$compy->linkedin}}"style="text-decoration: none;"> <i class="bi bi-linkedin" style="font-style:normal;"> {{$compy->fullName}}</i></a>
                     @else
-                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                    <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
                     @endif
                 </div>
             </div>
@@ -23,7 +23,7 @@
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
             <h5 class="text-center mt-5">
-                    Áreas de interes
+                    Áreas de interés
             </h5>
 
             <div class="d-flex flex-wrap justify-content-center">

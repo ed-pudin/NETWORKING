@@ -13,7 +13,7 @@
                 {{$sdt->fullName}}
             </h1>
 
-            <div class="text-white text-center">Linkedin: <br>
+            <div class="text-white text-center">LinkedIn: <br>
 
                 <div id="notFormEditLinkedin">
                     @if($sdt->linkedin != null)
@@ -22,7 +22,7 @@
                     </i>
                     </a>
                     @else
-                    <h5 style="font-size:.9rem; ">No se ha registrado linkedin</h5>
+                    <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
                     @endif
                 </div>
 
@@ -30,7 +30,7 @@
                         <div class="d-flex justify-content-center" style="align-items: center;text-align-last: start;">
                             <div class="col-md-6 col-12 mx-1">
                                 <div class="form-floating">
-                                    <input autocomplete="off" wire:model.lazy="oldLinkedin" name="editCompanyName" type="text" class="form-control" placeholder="Linkedin" required>
+                                    <input autocomplete="off" wire:model.lazy="oldLinkedin" name="editCompanyName" type="text" class="form-control" placeholder="LinkedIn" required>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
 
             <h5 class="text-center mt-5">
-                    Áreas de interes
+                    Áreas de interés
             </h5>
             <div class="d-flex flex-wrap justify-content-center">
 

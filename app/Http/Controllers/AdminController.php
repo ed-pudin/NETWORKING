@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //Tab alumnos y empresas
+        //Tab estudiantes y empresas
         $companies = company::all();
         $students = student::all();
         return view('admin.index', compact('companies','students'));
