@@ -108,6 +108,17 @@ h6{
     color: #21decb;
 }
 
+
+#nav-name p
+{
+    color: #32fff7;
+}
+
+#nav-name:hover p
+{
+   text-shadow: rgba(255, 255, 255, 0.9) 5px 0 20px;
+}
+
 .nav-tabs .nav-link {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
@@ -120,6 +131,25 @@ b {
     color:#21decb;
 }
 
+#buttonEditA
+{
+    background-color:#67B3FE;
+}
+
+#buttonEditA:hover
+{
+     box-shadow: 0 0 5px 2px #67B3FE;
+}
+
+#buttonEditB, #stopEditing
+{
+    background-color: #FE6767;
+}
+
+#buttonEditB:hover, #stopEditing:hover
+{
+    box-shadow: 0 0 5px 2px #FE6767;
+}
 
 .form-select, input:not(input[type=image]),input:not(input[type=image]):focus {
     background-color:transparent;
@@ -358,15 +388,23 @@ a>i.bi, .nav-txt, .navbar-brand {
     font-style:bold;
 }
 
-.btn-w {
+.btn-w2 {
     border-radius: 2.0rem;
-    border-color: #fff;
+    border-color: #32fff7;
     border-style: ridge;
     width: fit-content;
 }
 
-.btn-w:hover p{
-    color: #000;
+.btn-w {
+    border-radius: 2.0rem;
+    border-color: white;
+    border-style: ridge;
+    width: fit-content;
+}
+
+
+.btn-w2:hover {
+    box-shadow: 0 0 5px 3px rgba(0, 222, 255, 0.6);
 }
 
 .btn-w:hover {
@@ -781,3 +819,69 @@ input:-webkit-autofill {
     background-color:transparent!important;
     border-bottom: 2px solid #39f6e4;
   }
+  
+  
+  
+  
+  .btn-pagination{
+        background-color: #2a2844;
+        border-radius: 15px;
+        border: 0px;
+        height: 50px;
+        width: 7%;
+        color: snow;
+        --shadow-color: snow;
+        font-weight: bold;
+    }
+    
+    .btn-pagination:hover:enabled{
+        background-color: #7E00E1;
+        border-radius: 15px;
+        border: 0px;
+        height: 50px;
+        width: 7%;
+        color: snow;
+        box-shadow: 0 0 5px 2px #861dc2;
+         --shadow-color: snow;
+        font-weight: bold;
+    }
+    
+    .btn-pagination:disabled{
+        background-color: #141424;
+        border-radius: 15px;
+        border: 0px;
+        height: 50px;
+        width: 7%;
+        color: #636262;
+         --shadow-color: #636262;
+        font-weight: bold;
+    }
+    
+    .numPagination {
+        color: #C1C1C1;
+        font-size: 13px;
+        padding-top: 15px;
+    }
+    
+    .PagNum
+    {
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        border: 1px solid rgba(158, 158, 158, 0.0);
+        text-align: center; 
+        line-height: 21px;
+        font-size: 12px;
+        color: #C1C1C1;
+        border-radius: 3px;
+    }
+    
+    .LinkEXPO
+    {
+        text-decoration:none;
+    }
+    
+    .LinkEXPO:hover
+    {
+        text-shadow: 0 0 10px #17decb;
+    }

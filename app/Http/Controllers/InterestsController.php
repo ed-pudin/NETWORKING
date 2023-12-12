@@ -49,6 +49,12 @@ class InterestsController extends Controller
     public function store(Request $request)
     {
         $interests = new interests();
+        
+        if($request->interest == null)
+        {
+            session()->flash("status","Hubo un problema en el registro");
+            return redirect()->route('adminInterests.index');
+        }
 
         //Nombre de archivo
 

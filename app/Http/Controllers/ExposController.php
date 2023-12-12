@@ -40,16 +40,24 @@ class ExposController extends Controller
     {
         $expo = new expo();
 
-        $expo->year = $request->regExpo;
+        if(is_numeric($request->regExpo))
+        {
+            $expo->year = $request->regExpo;
 
-        if($expo->save()) {
-            session()->flash("status","EXPO registrada");
+            if($expo->save()) {
+                session()->flash("status","EXPO registrada");
+            }
+            else {
+                session()->flash("status","Hubo un problema en el registro");
+            }
+    
+            return redirect()->route('adminExpo.index');
         }
-        else {
+        else
+        {
             session()->flash("status","Hubo un problema en el registro");
+            return redirect()->route('adminExpo.index');
         }
-
-        return redirect()->route('adminExpo.index');
     }
 
     /**

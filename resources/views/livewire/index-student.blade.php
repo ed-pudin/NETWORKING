@@ -2,7 +2,7 @@
 
     <div class="container col-md-10 col-sm-12 d-flex justify-content-center">
 
-          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false"  wire:model="searchTxt" wire:keyup="search">
+          <input type="text" class="form-control" name="search" id="search-input" placeholder="Búsqueda" required autocomplete="false"  wire:model="searchTxt" wire:keyup="search">
 
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
@@ -19,7 +19,7 @@
 
             <div class="all-areas">
                 @foreach ($allInterests as $singleInterest)
-                <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="btn-primary" >{{$singleInterest->name}}</button>
+                <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" onclick='document.getElementById("search-input").innerHTML="<input readonly />"' id="{{$loop->index}}" class="btn-primary" >{{$singleInterest->name}}</button>
                 @endforeach
             </div>
 
@@ -30,50 +30,60 @@
 
             </div>
         </div>
-
+ 
+        
 
         <div class="d-flex flex-wrap justify-content-center">
             @if (count($companies)==0)
                 <h5>No hay empresas</h5>
-            @endif
-
-            @foreach ($companies as $company)
-                <div class="card col-12 col-md-4 studentsCards">
-                    <div class="d-lg-flex">
-                        <div class="col" onclick="window.location.href = '{{route('verEmpresa', $company->id)}}';" style="cursor:pointer">
-                            <div class="card-body">
-                                <h5 class="card-title student-fullname"> {{$company->fullName}}</h5>
-                                <div class="card-subtitle">
-                                <div class="text-white">
-                                    @if($company->linkedin != null)
-                                    LinkedIn: <a href="{{$company->linkedin}}">
-                                    {{$company->fullName}}
-                                    </a>
-                                    @else
-                                        <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
-                                    @endif
+                @else
+                    @foreach ($companies as $company)
+                        <div class="card col-12 col-md-4 studentsCards">
+                            <div class="d-lg-flex">
+                                <div class="col" onclick="window.location.href = '{{route('verEmpresa', $company['id'])}}';" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title student-fullname"> {{$company['fullName']}}</h5>
+                                        <div class="card-subtitle">
+                                        <div class="text-white">
+                                            @if($company['linkedin'] != null)
+                                            LinkedIn: <a href="{{$company['linkedin']}}">
+                                            {{$company['fullName']}}
+                                            </a>
+                                            @else
+                                                <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
+                                            @endif
+                                        </div>
+                                        </div>
+                                        <div class="all-areas mt-1">
+                                            @php
+                                                $interests = new App\Models\companyInterests;
+                                                $interests = App\Models\companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')
+                                                                                        ->where('company', '=', $company['id'])->get();
+                                            @endphp
+                                        @if (count($interests) == 0)
+                                            <h5 style="font-size:.9rem; ">No hay intereses</h5>
+                                        @endif
+                                        @foreach ($interests as $interest )
+                                            <button type="button" class="btn-primary my-1" disabled>{{$interest->name}}</button>
+                                        @endforeach
+        
+                                        </div>
+        
+                                    </div>
                                 </div>
-                                </div>
-                                <div class="all-areas mt-1">
-                                    @php
-                                        $interests = new App\Models\companyInterests;
-                                        $interests = App\Models\companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')
-                                                                                ->where('company', '=', $company->id)->get();
-                                    @endphp
-                                @if (count($interests) == 0)
-                                    <h5 style="font-size:.9rem; ">No hay intereses</h5>
-                                @endif
-                                @foreach ($interests as $interest )
-                                    <button type="button" class="btn-primary my-1" disabled>{{$interest->name}}</button>
-                                @endforeach
-
-                                </div>
-
                             </div>
                         </div>
-                    </div>
-                </div>
-            @endforeach
+                    @endforeach
+            @endif
+
+        </div>
+        
+        <div class="row mt-5">
+            <center>
+                <button type="button" wire:click="pagination(`{{$pag-1}}`)" id="btn-pag-ant" class="btn-pagination" style="/*background-color: #000000;border-radius: 8px;width: 5%;float:left;border: 2px solid #FFFFFF;color: #FFFFFF;*/" disabled=true><center><i class="gg-arrow-left" style="filter: drop-shadow(0 0 5px var(--shadow-color));"></i></center></button> 
+                <button type="button" wire:click="pagination(`{{$pag+1}}`)" id="btn-pag-sig" class="btn-pagination" style="/*background-color: #000000;border-radius: 8px;width: 5%;float:left;border: 2px solid #FFFFFF;color: #FFFFFF;*/"><center><i class="gg-arrow-right" style="filter: drop-shadow(0 0 5px var(--shadow-color));"></i></center></button>
+                <div class="numPagination">Página: <p class="PagNum">{{$pag+1}}</p></div>
+            </center>
         </div>
 
     </div>

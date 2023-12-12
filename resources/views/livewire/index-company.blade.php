@@ -1,9 +1,11 @@
 
+
+
 <div class="background-2 container-fluid min-vh-100">
 
     <div class="container col-md-10 col-sm-12 d-flex justify-content-center">
 
-          <input type="text" class="form-control" name="search" id="search" placeholder="Búsqueda" required autocomplete="false" wire:model="searchTxt" wire:keyup="search">
+          <input type="text" class="form-control" name="search" id="search-input" placeholder="Búsqueda" required autocomplete="false" wire:model="searchTxt" wire:keyup="search">
 
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">
@@ -20,7 +22,7 @@
 
             <div class="all-areas">
                 @foreach ($allInterests as $singleInterest)
-                    <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" id="{{$loop->index}}" class="btn-primary" >{{$singleInterest->name}}</button>
+                    <button type="button" wire:click="addFilter(`{{$singleInterest->name}}`,{{$loop->index}})" onclick='document.getElementById("search-input").innerHTML="<input readonly />"' id="{{$loop->index}}" class="btn-primary" >{{$singleInterest->name}}</button>
                 @endforeach
             </div>
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
@@ -29,56 +31,70 @@
 
             </div>
         </div>
+        
 
         <div class="d-flex flex-wrap justify-content-center">
             @if (count($students)==0)
                 <h5>No hay estudiantes</h5>
+                
+                @else
+                    @foreach ($students as $student)
+                        <div class="card col-12 col-md-4 studentsCards">
+                            <div class="d-lg-flex">
+                                <div class="" style="background-color: #141424" >
+                                    <div class="col-12 text-center">
+                                        <img style="object-fit: cover; height:180px; width:180px; border-radius:50%;" 
+                                        @if($student['image'] == null) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student['fullName']}}&backgroundColor=b6e3f4" 
+                                        @else src="{{asset("/studentImages/".$student['image'])}}" @endif alt="avatar"/>
+                                    </div>
+                                </div>
+                                <div class="col"onclick="window.location.href = '{{route('verEstudiante', $student['id'])}}';" style="cursor:pointer">
+                                    <div class="card-body">
+                                        <h5 class="card-title student-fullname"> {{$student['fullName']}}</h5>
+                                        <div class="card-subtitle">
+                                        <div class="text-white">
+                                            @if($student['linkedin'] != null)
+                                            LinkedIn: <a href="{{$student['linkedin']}}">
+                                            {{$student['fullName']}}
+                                            </a>
+                                            @else
+                                                <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
+                                            @endif
+                                        </div>
+                                        </div>
+                                        <div class="all-areas mt-1">
+                                            @php
+                                                $interests = new App\Models\studentInterests;
+                                                $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
+                                                                                        ->where('student', '=', $student['id'])->get();
+                                            @endphp
+        
+                                        @if (count($interests) == 0)
+                                            <h5 style="font-size:.9rem; ">No hay intereses</h5>
+                                        @endif
+                                        @foreach ($interests as $interest )
+                                            <button type="button" class="btn-primary my-1" disabled>{{$interest['name']}}</button>
+                                        @endforeach
+        
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                
             @endif
 
-            @foreach ($students as $student)
-                <div class="card col-12 col-md-4 studentsCards">
-                    <div class="d-lg-flex">
-                        <div class="" style="background-color: #141424" >
-                            <div class="col-12 text-center">
-                                <img style="object-fit: cover; height:180px; width:180px; border-radius:50%;" @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif alt="avatar"/>
-                            </div>
-                        </div>
-                        <div class="col"onclick="window.location.href = '{{route('verEstudiante', $student->id)}}';" style="cursor:pointer">
-                            <div class="card-body">
-                                <h5 class="card-title student-fullname"> {{$student->fullName}}</h5>
-                                <div class="card-subtitle">
-                                <div class="text-white">
-                                    @if($student->linkedin != null)
-                                    LinkedIn: <a href="{{$student->linkedin}}">
-                                    {{$student->fullName}}
-                                    </a>
-                                    @else
-                                        <h5 style="font-size:.9rem; ">No se ha registrado LinkedIn</h5>
-                                    @endif
-                                </div>
-                                </div>
-                                <div class="all-areas mt-1">
-                                    @php
-                                        $interests = new App\Models\studentInterests;
-                                        $interests = App\Models\studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')
-                                                                                ->where('student', '=', $student->id)->get();
-                                    @endphp
-
-                                @if (count($interests) == 0)
-                                    <h5 style="font-size:.9rem; ">No hay intereses</h5>
-                                @endif
-                                @foreach ($interests as $interest )
-                                    <button type="button" class="btn-primary my-1" disabled>{{$interest->name}}</button>
-                                @endforeach
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
         </div>
+        
+             <div class="container col-12 col-md-10 mx-auto" style="height: 120px;">
+                 <center>
+                    <button type="button" wire:click="pagination(`{{$pag-1}}`)" id="btn-pag-ant" class="btn-pagination" style="/*background-color: #000000;border-radius: 8px;width: 5%;float:left;border: 2px solid #FFFFFF;color: #FFFFFF;*/" disabled=true><center><i class="gg-arrow-left" style="filter: drop-shadow(0 0 5px var(--shadow-color));"></i></center></button> 
+                    <button type="button" wire:click="pagination(`{{$pag+1}}`)" id="btn-pag-sig" class="btn-pagination" style="/*background-color: #000000;border-radius: 8px;width: 5%;float:left;border: 2px solid #FFFFFF;color: #FFFFFF;*/"><center><i class="gg-arrow-right" style="filter: drop-shadow(0 0 5px var(--shadow-color));"></i></center></button>
+                    <div class="numPagination">Página: <p class="PagNum">{{$pag+1}}</p></div>
+                </center>
+            </div>
 
     </div>
 

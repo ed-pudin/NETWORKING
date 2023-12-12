@@ -21,7 +21,7 @@ class CompanyController extends Controller
     {
         //Lista de estudiantes
         $students = new student();
-        $students = student::all();
+        $students = student::all()->take(20);
 
         $allInterests = interests::all();
 
@@ -48,6 +48,12 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->regCompanyName == null)
+        {
+            session()->flash("status","Hubo un problema en el registro");
+            return redirect()->route('admin.index');
+        }
+        
         $email = Str::lower($request->regCompanyName);
 
         $userCompany = new User();
@@ -55,6 +61,14 @@ class CompanyController extends Controller
         $userCompany->password = Str::random(13);
         $userCompany->rol = 'company';
 
+        $userCompanyValidate = User::where('email', $email.'@net.working.com')->first();
+
+        if($userCompanyValidate)
+        {
+            session()->flash("status","Nombre ya existente");
+            return redirect()->route('admin.index');
+        }
+        
         if($userCompany->save()){
             $company = new company();
 
@@ -98,15 +112,23 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //Mostrar una empresa
-        $company = new company();
-        $company = company::where('user', '=', $id)->first();
-
-        //Mostrar intereses
-        $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $company->id)->get();
-
-        return view('company.profile', compact('company', 'interests'));
+        //Validación de si es la misma empresa
+        if(session()->get('id') == $id)
+        {
+            //Mostrar una empresa
+            $company = new company();
+            $company = company::where('user', '=', $id)->first();
+    
+            //Mostrar intereses
+            $interests = new companyInterests();
+            $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $company->id)->get();
+    
+            return view('company.profile', compact('company', 'interests'));
+        }
+        else
+        {
+            return redirect()->route('empresa.index');
+        }
     }
 
     /**
@@ -117,20 +139,27 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //Vista de editar
-        $cmpy = new company();
-        $cmpy = company::where('id', '=', $id)->first();
-
-        //Mostrar intereses
-        $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $cmpy->id)->get();
-
-        $allInterests = interests::all();
-
-        $user = new User();
-        $user = User::where('id', '=', $cmpy->user)->first();
-
-        return view('admin.edit.company', compact('cmpy', 'interests', 'allInterests', 'user'));
+        //if(session()->get('id') == $id)
+        //{
+            //Vista de editar
+            $cmpy = new company();
+            $cmpy = company::where('id', '=', $id)->first();
+    
+            //Mostrar intereses
+            $interests = new companyInterests();
+            $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $cmpy->id)->get();
+    
+            $allInterests = interests::all();
+    
+            $user = new User();
+            $user = User::where('id', '=', $cmpy->user)->first();
+    
+            return view('admin.edit.company', compact('cmpy', 'interests', 'allInterests', 'user'));
+        //}
+        //else
+        //{
+        //    return redirect()->route('empresa.index');
+        //}
     }
 
     /**
@@ -145,6 +174,12 @@ class CompanyController extends Controller
         //Editar
         $cmpy = new company();
         $cmpy = company::where('id', '=', $id)->first();
+        
+        if($request->regCompanyName == null || $request->regCompanyPass == null)
+        {
+                session()->flash("status","Hubo un problema en el registro");
+               return redirect()->route('admin.index');
+        }
 
         $cmpy->fullName = $request->regCompanyName;
         $cmpy->linkedin = $request->regCompanyLinkedin;
@@ -242,12 +277,20 @@ class CompanyController extends Controller
         //Mostrar una empresa
         $compy = new company();
         $compy = company::where('id', '=', $id)->first();
+        
+        if($compy == null)
+        {
+            return redirect()->route('estudiante.index');
+        }
+        else
+        {
+            //Mostrar intereses
+            $interests = new companyInterests();
+            $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $compy->id)->get();
+    
+    
+            return view('students.companyProfile', compact('compy', 'interests'));
+        }
 
-        //Mostrar intereses
-        $interests = new companyInterests();
-        $interests = companyInterests::join('interests', 'interests.id', '=', 'company_interests.interests')->where('company', '=', $compy->id)->get();
-
-
-        return view('students.companyProfile', compact('compy', 'interests'));
     }
 }

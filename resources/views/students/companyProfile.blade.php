@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="text-center">
 
-                                        <a href="{{route('estudiante.index')}}">VER MAS</a>
+                                        <!--<a href="{{route('estudiante.index')}}">VER MAS</a>-->
                                     </div>
                                 </div>
                             </div>

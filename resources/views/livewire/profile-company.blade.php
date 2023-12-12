@@ -22,10 +22,10 @@
                     </div>
                 </div>
                 <div class="mx-1" style="text-align-last: center;">
-                    <a wire:click="saveEditing()" class="btn-table btn btn-primary col-12 m-auto"><i class="bi bi-check-lg"></i></a>
+                    <a wire:click="saveEditing()" class="btn-table btn btn-primary col-12 m-auto" id="buttonEditA"><i class="bi bi-check-lg"></i></a>
                 </div>
                 <div class="mx-1" style="text-align-last: center;">
-                    <a wire:click="stopEditing()" class="btn-table btn btn-secondary m-auto"><i class="bi bi-x-lg"></i></a>
+                    <a wire:click="stopEditing()" class="btn-table btn btn-secondary m-auto" id="buttonEditB"><i class="bi bi-x-lg"></i></a>
                 </div>
             </div>
     </div>

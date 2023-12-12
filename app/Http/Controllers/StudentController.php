@@ -12,6 +12,7 @@ use App\Models\student;
 use App\Models\studentExpo;
 use App\Models\studentInterests;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Livewire;
 
 class StudentController extends Controller
 {
@@ -52,6 +53,29 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->regStudentName == null ||
+           $request->regStudentExpos == null)
+        {
+                session()->flash("status","Hubo un problema en el registro");
+                return redirect()->route('admin.index');
+        }
+        
+        if($request->regBtnStudentImg != null)
+        {
+            // Obtener la extensión del archivo
+            $image = $request->file('regBtnStudentImg');
+            $extension = $image->getClientOriginalExtension(); 
+            // Definir las extensiones permitidas
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            // Verificar si la extensión está en la lista permitida
+            if (in_array(strtolower($extension), $allowedExtensions)) {
+                // La extensión es válida, y continua en el código para procesar el archivo
+            } else {
+                 session()->flash("status","Hubo un problema en el registro");
+                return redirect()->route('admin.index');
+            }
+        }
+        
         $email = Str::lower(str_replace(" ", "",$request->regStudentName));
 
         $userStudent = new User();
@@ -59,6 +83,13 @@ class StudentController extends Controller
         $userStudent->password = Str::random(13);
         $userStudent->rol = 'student';
 
+        $userStudentValidate = User::where('email', $email.'@net.working.com')->first();
+
+        if($userStudentValidate)
+        {
+            session()->flash("status","Nombre ya existente");
+            return redirect()->route('admin.index');
+        }
 
         if($userStudent->save()){
             $student = new student();
@@ -71,6 +102,8 @@ class StudentController extends Controller
                 $fileName = time().'_'.uniqid();
                 //Guardar archivo
                 Storage::disk('public')->put($fileName, file_get_contents($request->file('regBtnStudentImg')));
+                $image = $request->file('regBtnStudentImg');
+                $image->move(public_path('studentImages'), $fileName);
             } else {
                 $fileName = null;
             }
@@ -127,18 +160,26 @@ class StudentController extends Controller
      */
     public function show($id)
     {
-        //Mostrar un estudiante
-        $student = new student();
-        $student = student::where('user', '=', $id)->first();
-
-        //Mostrar intereses
-        $interests = new studentInterests();
-        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $student->id)->get();
-
-        //Mostrar expos
-        $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $student->id)->get();
-
-        return view('students.profile', compact('student', 'interests', 'allExpos'));
+        //Validación si es el mismo usuario
+        if(session()->get('id') == $id)
+        {
+            //Mostrar un estudiante
+            $student = new student();
+            $student = student::where('user', '=', $id)->first();
+    
+            //Mostrar intereses
+            $interests = new studentInterests();
+            $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $student->id)->get();
+    
+            //Mostrar expos
+            $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $student->id)->get();
+    
+            return view('students.profile', compact('student', 'interests', 'allExpos'));
+        }
+        else
+        {
+            return redirect()->route('estudiante.index');
+        }
     }
 
     /**
@@ -149,27 +190,35 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //Vista de editar
-
-        //Estudiante a Editar
-        $student = new student();
-        $student = student::where('id', '=', $id)->first();
-
-        //Intereses del Estudiante
-        $studentInterests = new studentInterests();
-        $studentInterests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $student->id)->get();
-
-        //EXPOS del Estudiante
-        $studentExpos = new studentExpo();
-        $studentExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $student->id)->get();
-
-        $allExpos = expo::all();
-        $allInterests = interests::all();
-
-        $user = new User();
-        $user = User::where('id', '=', $student->user)->first();
-
-        return view('admin.edit.student', compact('student', 'studentInterests', 'studentExpos', 'allInterests', 'allExpos', 'user'));
+         //Validación si es el mismo usuario
+        //if(true)
+        //{
+            //Vista de editar
+    
+            //Estudiante a Editar
+            $student = new student();
+            $student = student::where('id', '=', $id)->first();
+    
+            //Intereses del Estudiante
+            $studentInterests = new studentInterests();
+            $studentInterests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $student->id)->get();
+    
+            //EXPOS del Estudiante
+            $studentExpos = new studentExpo();
+            $studentExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $student->id)->get();
+    
+            $allExpos = expo::all();
+            $allInterests = interests::all();
+    
+            $user = new User();
+            $user = User::where('id', '=', $student->user)->first();
+    
+            return view('admin.edit.student', compact('student', 'studentInterests', 'studentExpos', 'allInterests', 'allExpos', 'user'));
+        //}
+        //else
+        //{
+        //   return redirect()->route('estudiante.index');
+        //}
     }
 
     /**
@@ -190,8 +239,30 @@ class StudentController extends Controller
 
         $student->fullName = $request->adminEditStudentName;
         $student->linkedin = $request->adminEditStudentLinkedin;
+        
+        if($request->adminEditStudentEmail == null ||
+           $request->adminEditStudentName == null || $request->adminEditStudentPassword == null)
+        {
+                session()->flash("status","Hubo un problema en el registro");
+               return redirect()->route('admin.index');
+        }
 
         if($request->adminEditBtnStudent != null) {
+            
+            // Obtener la extensión del archivo
+            $image = $request->file('adminEditBtnStudent');
+            $extension = $image->getClientOriginalExtension(); 
+            // Definir las extensiones permitidas
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            // Verificar si la extensión está en la lista permitida
+            if (in_array(strtolower($extension), $allowedExtensions)) {
+                // La extensión es válida, y continua en el código para procesar el archivo
+            } else {
+                session()->flash("status","Hubo un problema en la edición");
+                return redirect()->route('admin.index');
+            }
+            
+            
             //Nombre de archivo
             $fileName = time().'_'.uniqid();
             //Guardar archivo
@@ -199,6 +270,8 @@ class StudentController extends Controller
             Storage::disk('public')->delete('/'.$student->image);
 
             Storage::disk('public')->put($fileName, file_get_contents($request->file('adminEditBtnStudent')));
+            $image = $request->file('adminEditBtnStudent');
+            $image->move(public_path('studentImages'), $fileName);
         } else {
             $fileName = $request->originalImage;
         }
@@ -290,16 +363,22 @@ class StudentController extends Controller
         //Mostrar un estudiante
         $sdt = new student();
         $sdt = student::where('id', '=', $id)->first();
-
-        //Mostrar intereses
-        $interests = new studentInterests();
-        $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $sdt->id)->get();
-
-        //Mostrar expos
-        $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $sdt->id)->get();
-
-        return view('company.studentProfile', compact('sdt', 'interests', 'allExpos'));
-
+        
+        if($sdt == null)
+        {
+            return redirect()->route('empresa.index');
+        }
+        else
+        {
+            //Mostrar intereses
+            $interests = new studentInterests();
+            $interests = studentInterests::join('interests', 'interests.id', '=', 'student_interests.interests')->where('student', '=', $sdt->id)->get();
+    
+            //Mostrar expos
+            $allExpos = studentExpo::join('expos', 'expos.id', '=', 'student_expos.expo')->where('student', '=', $sdt->id)->get();
+    
+            return view('company.studentProfile', compact('sdt', 'interests', 'allExpos'));
+        }
     }
 
     public function editarImagen(Request $request, $id){
@@ -315,6 +394,8 @@ class StudentController extends Controller
             Storage::disk('public')->delete('/'.$student->image);
 
             Storage::disk('public')->put($fileName, file_get_contents($request->file('regBtnStudentImg')));
+            $image = $request->file('regBtnStudentImg');
+            $image->move(public_path('studentImages'), $fileName);
         } else {
             $fileName = $student->image;
         }
@@ -325,6 +406,32 @@ class StudentController extends Controller
         }
         else {
             session()->flash("status","Hubo un problema en la edición");
+        }
+        return redirect()->back();
+
+    }
+    
+    public function editarPassword(Request $request, $id){
+        if($request->input('editPassword') != null){
+            $userStudent = new User();
+            
+            $auxStudent = student::find($id);
+            $userID = $auxStudent->user;
+            
+            $user = User::find($userID);
+            
+    
+            $user->fill([
+                'password' => $request->input('editPassword')
+            ]);
+            
+            if($user->save()){
+                session()->flash("status","Contraseña cambiada.");
+                
+            }else{
+                session()->flash("status","Hubo un problema con la edición.");
+                
+            }
         }
         return redirect()->back();
 
