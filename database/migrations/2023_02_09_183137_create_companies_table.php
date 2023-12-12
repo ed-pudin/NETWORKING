@@ -8,7 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
+     * Quitar change de linkedin
      * @return void
      */
     public function up()
@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('fullName', 50);
-            $table->string('linkedin', 100)->nullable()->change();
+            $table->string('linkedin', 100)->nullable();
             $table->unsignedBigInteger('user');
             $table->foreign('user')->references('id')->on('users');
             $table->timestamps();

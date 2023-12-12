@@ -44,7 +44,7 @@
                     <div class="mb-4 d-flex justify-content-center">
                         <img width="200" height="200" onclick="document.getElementById('adminEditBtnStudent').click();" name="adminEditStudentImg" style="object-fit: cover" id="adminEditStudentImg"
                             @if(is_null($student->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4"
-                            @else src="{{asset('storage/studentImages/'.$student->image)}}" @endif
+                            @else src="{{asset('/studentImages/'.$student->image)}}" @endif
                             alt="avatar"
                             required
                         />

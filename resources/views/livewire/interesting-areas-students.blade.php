@@ -53,7 +53,7 @@
                                     @endforeach
 
                                 @else
-                                    <a href="{{route('empresa.index')}}">VER MAS</a>
+                                    <!--<a href="{{route('empresa.index')}}">VER MAS</a>-->
                                 @endif
                             </div>
 

@@ -36,7 +36,13 @@ class InterestingAreas extends Component
         $companyInt = new companyInterests();
         $companyInt->interests = $id;
         $companyInt->company = $this->idCompany;
+        $interests = interests::where('id', '=', $id)->first();
 
+        if($interests == null)
+        {
+            session()->flash("status","Hubo un problema editando el interés.");
+            return redirect()->back();
+        }
         $companyInt->save();
 
         $this->initialAreas();
@@ -45,6 +51,11 @@ class InterestingAreas extends Component
     public function deleteRegister($id){
 
         $interests = companyInterests::where('interests', '=', $id)->where('company', '=', $this->idCompany)->first();
+        if($interests == null)
+        {
+            session()->flash("status","Hubo un problema editando el interés.");
+            return redirect()->back();
+        }
         $interests->delete();
 
         $this->initialAreas();

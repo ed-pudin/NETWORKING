@@ -36,7 +36,15 @@ class InterestingAreasStudents extends Component
         $studentInt = new studentInterests();
         $studentInt->interests = $id;
         $studentInt->student = $this->idStudent;
+        
+        $interests = interests::where('id', '=', $id)->first();
 
+        if($interests == null)
+        {
+            session()->flash("status","Hubo un problema editando el interés.");
+            return redirect()->back();
+        }
+        
         $studentInt->save();
 
         $this->initialAreas();
@@ -45,6 +53,11 @@ class InterestingAreasStudents extends Component
     public function deleteRegister($id){
 
         $interests = studentInterests::where('interests', '=', $id)->where('student', '=', $this->idStudent)->first();
+        if($interests == null)
+        {
+            session()->flash("status","Hubo un problema editando el interés.");
+            return redirect()->back();
+        }
         $interests->delete();
 
         $this->initialAreas();

@@ -63,7 +63,7 @@
 
             <div class="text-white text-center">Exposiciones: <br>
                 @foreach ($allExpos as $ex)
-                    {{$ex->year}}
+                    <a href="https://expolmad.sistemaregistrofcfm.com/Portfolio/student/{{$student->fullName}}" target="_blank" class="LinkEXPO" ><b>{{$ex->year}}</b></a>
                 @endforeach
             </div>
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
@@ -99,6 +99,13 @@
         $('#notFormEditLinkedin').show();
         $("#formEditLinkedin").hide();
     });
+    
+    /*Edit Password Form*/
+    // Livewire.on('editPassword', function (filter, index){
+    //     $('#modalChangePassword').hide();
+    //     $("#formEditPassword").show();
+        
+    // });
 
     Livewire.on('saveEditingSuccess', function (filter, index){
         Swal.fire({
@@ -125,7 +132,22 @@
     function submitFormImg() {
         document.getElementById("editarImagenEstudiante").submit();
     }
-
+    
+    /*Modal window to change password*/
+    function submitFormPassword(){
+        document.getElementById("submitFormPasswordUpdate").submit();
+    }
+    
+    $('#editP').click(function(){
+        $('#modalChangePassword').hide();
+        $("#formEditPassword").show();
+    });  
+    
+    //stopEditing
+    $('#stopEditing').click(function(){
+        $('#modalChangePassword').show();
+        $("#formEditPassword").hide();
+    });
 </script>
 
 @endsection

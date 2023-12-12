@@ -116,7 +116,7 @@
 
 
                 <div class="col-12 my-5" style="text-align:center;">
-                    <button id="regCompany" type="submit" class="col-md-4 col-sm-12 btn btn-primary">ENVIAR</button>
+                    <button id="regCompany" type="submit" class="col-md-4 col-sm-12 btn btn-primary" style="box-shadow: 0 0 5px 2px #861dc2;">ENVIAR</button>
                 </div>
 
         </form>

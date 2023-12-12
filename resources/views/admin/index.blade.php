@@ -45,12 +45,27 @@
     });
     @endif
 
-    @if(session()->get('status') == "Se eliminó correctamente")
+    
+    @if(session()->get('status') == "Hubo un problema en el registro")
     document.addEventListener("DOMContentLoaded", function(){
         Swal.fire({
         position: 'center',
-        icon: 'success',
-        iconColor: '#0de4fe',
+        icon: 'error',
+        iconColor:'#a70202',
+        title: `{{ session()->get('status') }}`,
+        showConfirmButton: false,
+        timer: 1500
+        })
+
+    });
+    @endif
+
+    @if(session()->get('status') == "Nombre ya existente")
+    document.addEventListener("DOMContentLoaded", function(){
+        Swal.fire({
+        position: 'center',
+        icon: 'error',
+        iconColor: '#a70202',
         title: `{{ session()->get('status') }}`,
         showConfirmButton: false,
         timer: 1500
@@ -256,7 +271,7 @@
                                             <td> <img style="object-fit: cover"
                                                 @if(is_null($student->image))
                                                 src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$student->fullName}}&backgroundColor=b6e3f4"
-                                                @else src="{{asset('storage/studentImages/'.$student->image)}}"
+                                                @else src="{{asset("/studentImages/".$student->image)}}"
                                                 @endif alt="avatar"/> </td>
                                             <td> {{$student->fullName}} </td>
                                             <td>

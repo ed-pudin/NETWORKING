@@ -44,7 +44,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
                               </div>
-                              <input autocomplete="off" type="email" class="form-control" name="email" id="email" placeholder="Correo" required>
+                              <input autocomplete="off" type="text" class="form-control" name="email" id="email" placeholder="Correo" required>
                             </div>
 
                         </div>

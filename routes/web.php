@@ -117,4 +117,8 @@ Route::group(['middleware' => 'isStudent'], function () {
     //4. Cambiar foto de perfil
     Route::put('editarImagen/{id}', [StudentController::class, 'editarImagen'])
     ->name('editarImagen');
+    
+    //5. Cambiar contraseña
+    Route::put('editarPassword/{id}', [StudentController::class, 'editarPassword'])
+    ->name('editarPassword');
 });

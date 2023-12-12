@@ -6,7 +6,7 @@
         <div class="col-12 col-md-9 mx-auto">
 
             <div class="col-12 text-center">
-                <img style="object-fit: cover; height:200px; width:200px; border-radius:50%;" @if(is_null($sdt->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$sdt->fullName}}&backgroundColor=b6e3f4" @else src="{{asset('storage/studentImages/'.$sdt->image)}}" @endif alt="avatar"/>
+                <img style="object-fit: cover; height:200px; width:200px; border-radius:50%;" @if(is_null($sdt->image)) src="https://api.dicebear.com/5.x/pixel-art/svg?seed={{$sdt->fullName}}&backgroundColor=b6e3f4" @else src="{{asset("/studentImages/".$sdt->image)}}" @endif alt="avatar"/>
             </div>
 
             <h1 class="text-center">
@@ -37,13 +37,25 @@
                 </div>
             </div>
 
+            <!--div class="text-white text-center">
+                
+            </div-->
 
             <div class="text-white text-center">Exposiciones: <br>
                 @foreach ($allExpos as $ex)
-                    {{$ex->year}}
+                    <a href="https://expolmad.sistemaregistrofcfm.com/Portfolio/student/{{$sdt->fullName}}" target="_blank" class="LinkEXPO" ><b>{{$ex->year}}</b></a>
                 @endforeach
             </div>
+            
             <hr class="" style="border: 1px solid; border-image: linear-gradient(to right, #39f6e4, #a7ee54); border-image-slice: 1; border-radius:50%; opacity:100%">
+
+            <h5 class="text-center mt-5">
+               <!--b><a href="https://expolmad.sistemaregistrofcfm.com/Portfolio/student/{{$sdt->fullName}}" style="color: #2AD2FF; text-decoration: none; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);" target="_blank" >
+                   Ver Proyectos
+                   <br ><img src='{{ asset('imgs/logo.png') }}' height="29" width="50" style="margin-top: 10px;"> 
+                   </a>
+                </b--->
+            </h5>
 
             <h5 class="text-center mt-5">
                     Áreas de interés

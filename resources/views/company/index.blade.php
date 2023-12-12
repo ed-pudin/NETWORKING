@@ -46,7 +46,7 @@
         `
         <button type="button" class="btn-primary" id="${index}">${filter}<i class="bi bi-x-circle-fill" onclick="show(${index})"></i></button>
         `
-
+        document.getElementById("search-input").setAttribute("readonly" , "readonly" , false);
         $(".selected-area button").each(function(){
             let hash = "#"
             let c = hash.concat(intToRGB(hashCode($(this)[0].innerText)));
@@ -55,8 +55,17 @@
 
         $(".all-areas button#"+index).css('display', 'none');
     });
-
-
+    
+    
+    Livewire.on('unlock-btn', function (filter, index){
+        var btnAnt = document.getElementById("btn-pag-ant");
+        btnAnt.disabled = false;
+    });
+    
+    Livewire.on('lock-btn', function (filter, index){
+        var btnAnt = document.getElementById("btn-pag-sig");
+        btnAnt.disabled = true;
+    });
 
     function show(index){
 
@@ -65,7 +74,7 @@
         $(".all-areas button#"+index).show();
 
         Livewire.emit('deleteFilter');
-
+        document.getElementById("search-input").removeAttribute("readonly"  , false);
     }
 </script>
 
